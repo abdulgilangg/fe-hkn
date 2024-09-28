@@ -7,8 +7,8 @@ interface BreadcrumbProps {
 
 const Breadcrumb = ({ pageName, role }: BreadcrumbProps) => {
   const basePath = {
-    admin: { path: '/admin-dashboard', label: 'Dashboard' },
-    dealer: { path: '/dealer-dashboard', label: 'Dashboard' },
+    admin: { path: '/admin/home', label: 'Home' },
+    dealer: { path: '/dealer/home', label: 'Home' },
   };
 
   const { path, label } = basePath[role];
