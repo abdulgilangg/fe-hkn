@@ -109,15 +109,6 @@ const Verification: React.FC = () => {
     <div className="bg-gray-100 flex min-h-screen items-center justify-center dark:bg-boxdark-2 dark:text-bodydark">
       <div className="w-full max-w-[480px] px-6">
         <div className="text-center">
-          <a className="mx-auto mb-10 inline-flex">
-            <img
-              className="dark:hidden"
-              src={'/logo/logo.png'}
-              alt="Logo"
-              width={100}
-              height={32}
-            />
-          </a>
           <div className="rounded-xl bg-white p-6 shadow-lg dark:bg-boxdark lg:p-8">
             <h1 className="mb-4 text-3xl font-bold text-black dark:text-white">
               Verify Your Account
