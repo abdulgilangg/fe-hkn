@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const Notifikasi = () => {
+const Notification = () => {
   // State untuk mengontrol tampilan notifikasi
   const [isVisible, setIsVisible] = useState(true);
 
@@ -79,5 +79,4 @@ const Notifikasi = () => {
     </div>
   );
 };
-
-export default Notifikasi;
+export default Notification;
