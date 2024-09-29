@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import ClickOutside from '../ClickOutside';
+import ClickOutside from '../Utilities/ClickOutside';
 
 const DropdownCart = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
