@@ -4,9 +4,9 @@ import { Route, Routes, useLocation } from 'react-router-dom';
 // Loader
 import Loader from './common/Loader';
 // Main
-import Main from './pages/Main/page';
+import Main from './pages/Main';
 // Page Title
-import PageTitle from './components/PageTitle';
+import PageTitle from './components/Utilities/PageTitle';
 
 // Authentication
 import SignIn from './pages/Authentication/SignIn';
@@ -17,16 +17,16 @@ import NewPassword from './pages/Authentication/NewPassword';
 
 // Page Admin
 import Pengumuman from './pages/Admin/Pengumuman';
-import Dashboard from './pages/Admin/Dashboard';
+import HomeAdmin from './pages/Admin/Home';
 import Profile from './pages/Admin/Profile';
 import HistoriTransaksi from './pages/Admin/HistoriTransaksi';
 import Pesanan from './pages/Admin/Pesanan';
 
 // Page Dealer
-import Home from './pages/Dealer/Home/Home';
-import Order from './pages/Dealer/Order/Order';
-import Payment from './pages/Dealer/Payment/Payment';
-import Settings from './pages/Admin/Settings';
+import HomeDealer from './pages/Dealer/Home';
+import Order from './pages/Dealer/Order';
+import Payment from './pages/Dealer/Payment';
+import Settings from './pages/Dealer/Settings';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -110,7 +110,7 @@ function App() {
         element={
           <>
             <PageTitle title="HKN | Home" />
-            <Dashboard />
+            <HomeAdmin />
           </>
         }
       />
@@ -167,7 +167,7 @@ function App() {
         element={
           <>
             <PageTitle title="HKN | Home" />
-            <Home />
+            <HomeDealer />
           </>
         }
       />
