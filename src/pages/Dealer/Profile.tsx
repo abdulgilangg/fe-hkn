@@ -1,6 +1,6 @@
-// import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
-// import CoverOne from '../images/cover/cover-01.png';
-// import userSix from '../images/user/user-06.png';
+import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
+import CoverOne from '/images/cover/cover-01.png';
+import userSix from '/images/user/user-06.png';
 import { Link } from 'react-router-dom';
 import RoleBasedLayout from '../../layout/RoleBasedLayout';
 
@@ -9,6 +9,7 @@ const Profile = () => {
     <>
       <RoleBasedLayout role="dealer">
         <div className="overflow-hidden rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+          <Breadcrumb pageName="Profile" role="dealer" />
           <div className="relative z-20 h-35 md:h-65">
             <img
               src={''}
@@ -286,7 +287,6 @@ const Profile = () => {
           </div>
         </div>
       </RoleBasedLayout>
-      {/* <Breadcrumb pageName="Profile" role="dealer" /> */}
     </>
   );
 };
