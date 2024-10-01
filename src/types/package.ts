@@ -14,7 +14,7 @@ export type menuBarang = {
   qty: number;
 };
 
-export type historiPesanan = {
+export type OrderHistory = {
   id: number;
   tanggal: string;
   noOrder: string;
