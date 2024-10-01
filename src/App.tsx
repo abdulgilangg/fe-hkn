@@ -3,29 +3,23 @@ import { Route, Routes, useLocation } from 'react-router-dom';
 
 // Loader
 import Loader from './common/Loader';
-// Main
-import Main from './pages/Main';
+// Home
+import Homepage from './pages/Homepage';
 // Page Title
 import PageTitle from './components/Utilities/PageTitle';
 
 // Authentication
-import SignIn from './pages/Authentication/SignIn';
 import SignUp from './pages/Authentication/SignUp';
 import Verify from './pages/Authentication/Verify';
+import SignIn from './pages/Authentication/SignIn';
 import ForgotPassword from './pages/Authentication/ForgotPassword';
 import NewPassword from './pages/Authentication/NewPassword';
 
 // Page Admin
-import Pengumuman from './pages/Admin/Pengumuman';
-import HomeAdmin from './pages/Admin/Home';
 import Profile from './pages/Admin/Profile';
-import HistoriTransaksi from './pages/Admin/HistoriTransaksi';
-import Pesanan from './pages/Admin/Pesanan';
 
 // Page Dealer
 import HomeDealer from './pages/Dealer/Home';
-import Order from './pages/Dealer/Order';
-import Payment from './pages/Dealer/Payment';
 import Settings from './pages/Dealer/Settings';
 
 function App() {
@@ -50,7 +44,7 @@ function App() {
         element={
           <>
             <PageTitle title="Welcome!" />
-            <Main />
+            <Homepage />
           </>
         }
       />
@@ -58,20 +52,20 @@ function App() {
 
       {/* Route Authentication */}
       <Route
-        path="/auth/signin"
-        element={
-          <>
-            <PageTitle title="HKN | Signin" />
-            <SignIn />
-          </>
-        }
-      />
-      <Route
         path="/auth/signup"
         element={
           <>
             <PageTitle title="HKN | Signup" />
             <SignUp />
+          </>
+        }
+      />
+      <Route
+        path="/auth/signin"
+        element={
+          <>
+            <PageTitle title="HKN | Signin" />
+            <SignIn />
           </>
         }
       />
@@ -110,7 +104,7 @@ function App() {
         element={
           <>
             <PageTitle title="HKN | Home" />
-            <HomeAdmin />
+            {/* <HomeAdmin /> */}
           </>
         }
       />
@@ -119,7 +113,6 @@ function App() {
         element={
           <>
             <PageTitle title="HKN | Histori Transaksi" />
-            <HistoriTransaksi />
           </>
         }
       />
@@ -128,7 +121,6 @@ function App() {
         element={
           <>
             <PageTitle title="HKN | Pesanan" />
-            <Pesanan />
           </>
         }
       />
@@ -137,7 +129,6 @@ function App() {
         element={
           <>
             <PageTitle title="HKN | Pengumuman" />
-            <Pengumuman />
           </>
         }
       />
@@ -176,7 +167,7 @@ function App() {
         element={
           <>
             <PageTitle title="HKN | Order" />
-            <Order />
+            {/* <Order /> */}
           </>
         }
       />
@@ -185,7 +176,16 @@ function App() {
         element={
           <>
             <PageTitle title="HKN | Payment" />
-            <Payment />
+            {/* <Payment /> */}
+          </>
+        }
+      />
+      <Route
+        path="/dealer/profile"
+        element={
+          <>
+            <PageTitle title="HKN | Profile" />
+            <Profile />
           </>
         }
       />
@@ -202,5 +202,4 @@ function App() {
     </Routes>
   );
 }
-
 export default App;
