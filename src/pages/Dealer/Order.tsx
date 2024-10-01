@@ -1,7 +1,7 @@
 import React from 'react';
 import RoleBasedLayout from '../../layout/RoleBasedLayout';
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
-import OrderDealer from '../../components/DealerComponents/Order1';
+import OrderDealer from '../../components/DealerComponents/OrderV2';
 
 const Order: React.FC = () => {
   return (

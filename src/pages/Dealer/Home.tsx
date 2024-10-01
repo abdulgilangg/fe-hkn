@@ -1,22 +1,19 @@
 import React from 'react';
 import RoleBasedLayout from '../../layout/RoleBasedLayout';
-import HistoriPesanan from '../../components/DealerComponents/HistoriPesanan';
-import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
-import Notifikasi from '../../components/Notification/Notification';
+import Notification from '../../components/Notification/Notification';
+import OrderHistory from '../../components/DealerComponents/OrderHistory';
 
 const Home: React.FC = () => {
   return (
     <>
       <RoleBasedLayout role="dealer">
         <div className="mx-auto max-w-242.5">
-          <Breadcrumb pageName="Home" role="dealer" />
-
           {/* Notification */}
-          <Notifikasi />
+          <Notification />
           {/* End Notification */}
 
           {/* Order History*/}
-          <HistoriPesanan />
+          <OrderHistory />
           {/* End Order History */}
         </div>
       </RoleBasedLayout>
