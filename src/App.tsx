@@ -16,11 +16,14 @@ import ForgotPassword from './pages/Authentication/ForgotPassword';
 import NewPassword from './pages/Authentication/NewPassword';
 
 // Page Admin
-import Profile from './pages/Admin/Profile';
 
 // Page Dealer
 import HomeDealer from './pages/Dealer/Home';
+import Order from './pages/Dealer/Order';
+// import Payment from './pages/Dealer/Payment';
 import Settings from './pages/Dealer/Settings';
+import Profile from './pages/Dealer/Profile';
+import NotFound from './pages/404/NotFound';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -137,7 +140,7 @@ function App() {
         element={
           <>
             <PageTitle title="HKN | Profile " />
-            <Profile />
+            {/* <Profile /> */}
           </>
         }
       />
@@ -167,7 +170,7 @@ function App() {
         element={
           <>
             <PageTitle title="HKN | Order" />
-            {/* <Order /> */}
+            <Order />
           </>
         }
       />
@@ -176,7 +179,7 @@ function App() {
         element={
           <>
             <PageTitle title="HKN | Payment" />
-            {/* <Payment /> */}
+            <NotFound />
           </>
         }
       />
