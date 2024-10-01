@@ -1,7 +1,7 @@
 import React from 'react';
 import RoleBasedLayout from '../../layout/RoleBasedLayout';
 import Notification from '../../components/Notification/Notification';
-import OrderHistory from '../../components/DealerComponents/OrderHistory';
+import OrderHistory from '../../components/AdminComponents/OrderHistory';
 
 const Home: React.FC = () => {
   return (

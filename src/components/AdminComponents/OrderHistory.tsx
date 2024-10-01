@@ -146,6 +146,7 @@ const DataPesanan: React.FC = () => {
           Order History
         </h4>
       </div>
+
       <div className="flex justify-between border-stroke px-8 pb-4 dark:border-strokedark">
         <div className="relative flex w-100 items-center">
           <div className="absolute left-3 top-1/2 -translate-y-1/2 transform">
@@ -224,6 +225,7 @@ const DataPesanan: React.FC = () => {
             <option value="10">10</option>
             <option value="20">20</option>
             <option value="50">50</option>
+            <option value="100">100</option>
           </select>
           <p className="pl-2 text-black dark:text-white">Entries Per Page</p>
         </div>
