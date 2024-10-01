@@ -1,7 +1,7 @@
 import React from 'react';
 import RoleBasedLayout from '../../layout/RoleBasedLayout';
+import OrderDealer from '../../components/DealerComponents/OrderV1';
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
-import OrderDealer from '../../components/DealerComponents/OrderV2';
 
 const Order: React.FC = () => {
   return (
@@ -9,10 +9,9 @@ const Order: React.FC = () => {
       <RoleBasedLayout role="dealer">
         <div className="mx-auto max-w-242.5">
           <Breadcrumb pageName="Order" role="dealer" />
-
-          {/* Notification */}
+          {/* Order History*/}
           <OrderDealer />
-          {/* End Notification */}
+          {/* End Order History */}
         </div>
       </RoleBasedLayout>
     </>
