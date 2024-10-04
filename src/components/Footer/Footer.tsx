@@ -2,8 +2,8 @@ import React from 'react';
 
 const Footer: React.FC = () => {
   return (
-    <footer className="flex w-full p-5 bg-white drop-shadow-lg dark:bg-boxdark">
-      <strong className="text-gray-800 dark:text-white">
+    <footer className="flex w-full p-3 bg-white drop-shadow-lg dark:bg-boxdark">
+      <strong className="text-gray-500 dark:text-white">
         Copyright © 2024{' '}
         <a
           href="https://www.sumapala.co.id"

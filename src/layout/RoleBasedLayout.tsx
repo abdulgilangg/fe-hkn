@@ -1,6 +1,7 @@
 import React, { useState, ReactNode } from 'react';
 import Header from '../components/Header/index';
 import Sidebar from '../components/Sidebar/index';
+import Footer from '../components/Footer/Footer';
 
 interface RoleBasedLayoutProps {
   children: ReactNode;
@@ -42,6 +43,9 @@ const RoleBasedLayout: React.FC<RoleBasedLayoutProps> = ({
             </div>
           </main>
           {/* ===== Main Content End ===== */}
+          {/* Footer */}
+          <Footer />
+          {/* End Footer */}
         </div>
         {/* ===== Content Area End ===== */}
       </div>
