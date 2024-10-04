@@ -11,7 +11,7 @@ const Footer: React.FC = () => {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Sumapala Integrasi Solusi.
+          PT. Sumapala Integrasi Solusi.
         </a>{' '}
         All rights reserved.
       </strong>
