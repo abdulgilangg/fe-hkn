@@ -20,10 +20,12 @@ import NewPassword from './pages/Authentication/NewPassword';
 // Page Dealer
 import HomeDealer from './pages/Dealer/Home';
 import Order from './pages/Dealer/Order';
-// import Payment from './pages/Dealer/Payment';
+import Payment from './pages/Dealer/Payment';
 import Settings from './pages/Dealer/Settings';
 import Profile from './pages/Dealer/Profile';
-import NotFound from './pages/404/NotFound';
+
+// Invoice
+import Invoice from './components/DealerComponents/Invoice';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -179,7 +181,7 @@ function App() {
         element={
           <>
             <PageTitle title="HKN | Payment" />
-            <NotFound />
+            <Payment />
           </>
         }
       />
@@ -198,6 +200,15 @@ function App() {
           <>
             <PageTitle title="HKN | Settings" />
             <Settings />
+          </>
+        }
+      />
+      <Route
+        path="/dealer/invoice"
+        element={
+          <>
+            <PageTitle title="HKN | Invoice" />
+            <Invoice />
           </>
         }
       />
