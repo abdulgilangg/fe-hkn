@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { OrderHistory } from '../../types/package';
+import { useState } from 'react';
+import { orderHistory } from '../../types/package';
 
-const DataPesanan: React.FC = () => {
+const OrderHistory: React.FC = () => {
   const [search, setSearch] = useState('');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [entriesPerPage, setEntriesPerPage] = useState(5);
@@ -9,75 +9,75 @@ const DataPesanan: React.FC = () => {
   const [sortItems, setSortItems] = useState<'asc' | 'desc'>('asc');
   const [currentPage, setCurrentPage] = useState<number>(1);
 
-  const Data: OrderHistory[] = [
+  const Data: orderHistory[] = [
     {
       id: 1,
-      tanggal: `13 Sep 24`,
+      tanggal: '13 Sep 24',
       noOrder: 'SO.2023.09',
-      jumlah: `23.000.000`,
+      jumlah: 23000000,
       jenisPayment: 'DP 30%',
       statusPayment: 'Menunggu',
       statusKirim: 'On Process',
     },
     {
       id: 2,
-      tanggal: `13 Sep 24`,
+      tanggal: '13 Sep 24',
       noOrder: 'SO.2023.09',
-      jumlah: `23.000.000`,
+      jumlah: 23000000,
       jenisPayment: 'DP 30%',
       statusPayment: 'Menunggu',
       statusKirim: 'On Process',
     },
     {
       id: 3,
-      tanggal: `13 Jun 24`,
+      tanggal: '13 Jun 24',
       noOrder: 'SO.2023.06',
-      jumlah: `3.500.000`,
+      jumlah: 3500000,
       jenisPayment: 'COD',
       statusPayment: 'DP Lunas',
       statusKirim: 'Delivered',
     },
     {
       id: 4,
-      tanggal: `23 Apr 23`,
+      tanggal: '23 Apr 23',
       noOrder: 'SO.2023.04',
-      jumlah: `19.000.000`,
+      jumlah: 19000000,
       jenisPayment: 'DP 30%',
       statusPayment: 'DP Lunas',
       statusKirim: 'Delivered',
     },
     {
       id: 5,
-      tanggal: `23 Apr 23`,
+      tanggal: '23 Apr 23',
       noOrder: 'SO.2023.04',
-      jumlah: `19.000.000`,
+      jumlah: 19000000,
       jenisPayment: 'DP 30%',
       statusPayment: 'Lunas',
       statusKirim: 'Delivered',
     },
     {
       id: 6,
-      tanggal: `23 Apr 23`,
+      tanggal: '23 Apr 23',
       noOrder: 'SO.2023.04',
-      jumlah: `19.000.000`,
+      jumlah: 19000000,
       jenisPayment: 'DP 30%',
       statusPayment: 'Lunas',
       statusKirim: 'Delivered',
     },
     {
       id: 7,
-      tanggal: `23 Apr 23`,
+      tanggal: '23 Apr 23',
       noOrder: 'SO.2023.04',
-      jumlah: `19.000.000`,
+      jumlah: 19000000,
       jenisPayment: 'DP 30%',
       statusPayment: 'Dibatalkan',
       statusKirim: 'Cancel',
     },
     {
       id: 8,
-      tanggal: `23 Apr 23`,
+      tanggal: '23 Apr 23',
       noOrder: 'SO.2023.04',
-      jumlah: `19.000.000`,
+      jumlah: 19000000,
       jenisPayment: 'DP 30%',
       statusPayment: 'Dibatalkan',
       statusKirim: 'Cancel',
@@ -97,11 +97,11 @@ const DataPesanan: React.FC = () => {
   // Fungsi untuk mengurutkan data berdasarkan column yang dipilih sortBy dan urutan sortItems
   const sortedData = [...Data].sort((a, b) => {
     if (sortItems === 'asc') {
-      return a[sortBy as keyof OrderHistory] > b[sortBy as keyof OrderHistory]
+      return a[sortBy as keyof orderHistory] > b[sortBy as keyof orderHistory]
         ? 1
         : -1;
     } else {
-      return a[sortBy as keyof OrderHistory] < b[sortBy as keyof OrderHistory]
+      return a[sortBy as keyof orderHistory] < b[sortBy as keyof orderHistory]
         ? 1
         : -1;
     }
@@ -210,7 +210,10 @@ const DataPesanan: React.FC = () => {
                       <path d="M12 9v4" />
                       <path d="M12 17h.01" />
                     </svg>
-                    <span>Maaf data barang yang anda cari tidak tersedia</span>
+                    <span>
+                      Tidak ada data yang ditemukan. Silakan coba kata kunci
+                      lain.
+                    </span>
                   </div>
                 )}
               </div>
@@ -468,7 +471,7 @@ const DataPesanan: React.FC = () => {
             </div>
             <div className="col-span-1 flex items-center justify-center">
               <p className="text-sm text-black dark:text-white">
-                {OrderHistory.jumlah}
+                {OrderHistory.jumlah.toLocaleString('id-ID')}
               </p>
             </div>
             <div className="col-span-1 flex items-center justify-center">
@@ -562,4 +565,4 @@ const DataPesanan: React.FC = () => {
   );
 };
 
-export default DataPesanan;
+export default OrderHistory;
