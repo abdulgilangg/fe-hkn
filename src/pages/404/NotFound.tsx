@@ -1,7 +1,7 @@
 const NotFound = () => {
   return (
     <>
-      <main className="grid min-h-screen place-items-center bg-white px-6 py-24 sm:py-32 lg:px-8">
+      <main className="grid rounded-sm min-h-screen place-items-center border border-stroke bg-white px-6 py-24 sm:py-32 lg:px-8 shadow-default dark:border-strokedark dark:bg-boxdark">
         <div className="text-center">
           <p className="font-medium font-poppins text-5xl text-[#4f61e3]">
             404
