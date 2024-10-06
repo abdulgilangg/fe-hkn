@@ -36,119 +36,121 @@ const Invoice: React.FC = () => {
   };
 
   return (
-    <div className="w-full max-w-3xl mx-auto p-8 border border-gray-300">
-      {/* Header */}
-      <div className="text-center mb-6">
-        <h2 className="text-xl font-bold">{invoiceData.companyName}</h2>
-        <p>{invoiceData.companyAddress}</p>
-      </div>
-
-      {/* Info Kepada dan Invoice */}
-      <div className="flex justify-between mb-6">
-        <div>
-          <p className="font-bold">Kepada:</p>
-          <p>{invoiceData.recipient}</p>
-          <p>{invoiceData.recipientAddress}</p>
+    <>
+      <div className="w-full max-w-3xl mx-auto p-8 border border-gray-300">
+        {/* Header */}
+        <div className="text-center mb-6">
+          <h2 className="text-xl font-bold">{invoiceData.companyName}</h2>
+          <p>{invoiceData.companyAddress}</p>
         </div>
-        <div>
-          <p className="font-bold">Pesanan Penjualan</p>
-          <p>
-            <span className="font-semibold">Tanggal:</span> {invoiceData.date}
-          </p>
-          <p>
-            <span className="font-semibold">Nomor:</span>{' '}
-            {invoiceData.invoiceNumber}
-          </p>
-          <p>
-            <span className="font-semibold">Syarat Pembayaran:</span>{' '}
-            {invoiceData.paymentTerms}
-          </p>
-          <p>
-            <span className="font-semibold">Mata Uang:</span>{' '}
-            {invoiceData.currency}
-          </p>
-        </div>
-      </div>
 
-      {/* Tabel Barang */}
-      <table className="w-full table-auto border-collapse mb-6">
-        <thead>
-          <tr className="border-b">
-            <th className="text-left p-2">Kode Barang</th>
-            <th className="text-left p-2">Nama Barang</th>
-            <th className="text-right p-2">Kts.</th>
-            <th className="text-right p-2">@Harga</th>
-            <th className="text-right p-2">Diskon</th>
-            <th className="text-right p-2">Total Harga</th>
-          </tr>
-        </thead>
-        <tbody>
-          {invoiceData.items.map((item, index) => (
-            <tr key={index} className="border-b">
-              <td className="p-2">{item.kode}</td>
-              <td className="p-2">{item.name}</td>
-              <td className="text-right p-2">{item.qty}</td>
-              <td className="text-right p-2">
-                {item.price.toLocaleString('id-ID')}
-              </td>
-              <td className="text-right p-2">
-                {item.discount.toLocaleString('id-ID')}
-              </td>
-              <td className="text-right p-2">
-                {(item.qty * item.price - item.discount).toLocaleString(
-                  'id-ID',
-                )}
-              </td>
+        {/* Info Kepada dan Invoice */}
+        <div className="flex justify-between mb-6">
+          <div>
+            <p className="font-bold">Kepada:</p>
+            <p>{invoiceData.recipient}</p>
+            <p>{invoiceData.recipientAddress}</p>
+          </div>
+          <div>
+            <p className="font-bold">Pesanan Penjualan</p>
+            <p>
+              <span className="font-semibold">Tanggal:</span> {invoiceData.date}
+            </p>
+            <p>
+              <span className="font-semibold">Nomor:</span>{' '}
+              {invoiceData.invoiceNumber}
+            </p>
+            <p>
+              <span className="font-semibold">Syarat Pembayaran:</span>{' '}
+              {invoiceData.paymentTerms}
+            </p>
+            <p>
+              <span className="font-semibold">Mata Uang:</span>{' '}
+              {invoiceData.currency}
+            </p>
+          </div>
+        </div>
+
+        {/* Tabel Barang */}
+        <table className="w-full table-auto border-collapse mb-6">
+          <thead>
+            <tr className="border-b">
+              <th className="text-left p-2">Kode Barang</th>
+              <th className="text-left p-2">Nama Barang</th>
+              <th className="text-right p-2">Kts.</th>
+              <th className="text-right p-2">@Harga</th>
+              <th className="text-right p-2">Diskon</th>
+              <th className="text-right p-2">Total Harga</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-
-      {/* Total Section */}
-      <div className="flex justify-end mb-6">
-        <table className="w-1/3 border-collapse">
+          </thead>
           <tbody>
-            <tr>
-              <td className="p-2 font-semibold">Sub Total (Exc. PPN)</td>
-              <td className="p-2 text-right">
-                {invoiceData.subtotal.toLocaleString('id-ID')}
-              </td>
-            </tr>
-            <tr>
-              <td className="p-2 font-semibold">Diskon</td>
-              <td className="p-2 text-right">0</td>
-            </tr>
-            <tr>
-              <td className="p-2 font-semibold">PPN (%)</td>
-              <td className="p-2 text-right">{invoiceData.ppn}</td>
-            </tr>
-            <tr>
-              <td className="p-2 font-semibold">Biaya Lain-lain</td>
-              <td className="p-2 text-right">0</td>
-            </tr>
-            <tr>
-              <td className="p-2 font-semibold">Total (Inc. PPN)</td>
-              <td className="p-2 text-right">
-                {invoiceData.total.toLocaleString('id-ID')}
-              </td>
-            </tr>
+            {invoiceData.items.map((item, index) => (
+              <tr key={index} className="border-b">
+                <td className="p-2">{item.kode}</td>
+                <td className="p-2">{item.name}</td>
+                <td className="text-right p-2">{item.qty}</td>
+                <td className="text-right p-2">
+                  {item.price.toLocaleString('id-ID')}
+                </td>
+                <td className="text-right p-2">
+                  {item.discount.toLocaleString('id-ID')}
+                </td>
+                <td className="text-right p-2">
+                  {(item.qty * item.price - item.discount).toLocaleString(
+                    'id-ID',
+                  )}
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
-      </div>
 
-      {/* Notes & Bank Info */}
-      <div className="mb-6">
-        <p className="font-bold">Keterangan:</p>
-        <p>{invoiceData.note}</p>
-        <p>Pembayaran hanya dilakukan kepada Rekening berikut:</p>
-        <p>{invoiceData.bank}</p>
-      </div>
+        {/* Total Section */}
+        <div className="flex justify-end mb-6">
+          <table className="w-1/3 border-collapse">
+            <tbody>
+              <tr>
+                <td className="p-2 font-semibold">Sub Total (Exc. PPN)</td>
+                <td className="p-2 text-right">
+                  {invoiceData.subtotal.toLocaleString('id-ID')}
+                </td>
+              </tr>
+              <tr>
+                <td className="p-2 font-semibold">Diskon</td>
+                <td className="p-2 text-right">0</td>
+              </tr>
+              <tr>
+                <td className="p-2 font-semibold">PPN (%)</td>
+                <td className="p-2 text-right">{invoiceData.ppn}</td>
+              </tr>
+              <tr>
+                <td className="p-2 font-semibold">Biaya Lain-lain</td>
+                <td className="p-2 text-right">0</td>
+              </tr>
+              <tr>
+                <td className="p-2 font-semibold">Total (Inc. PPN)</td>
+                <td className="p-2 text-right">
+                  {invoiceData.total.toLocaleString('id-ID')}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
 
-      <div className="mt-12 text-right">
-        <p>Disetujui,</p>
-        <p>Tgl. ___________________</p>
+        {/* Notes & Bank Info */}
+        <div className="mb-6">
+          <p className="font-bold">Keterangan:</p>
+          <p>{invoiceData.note}</p>
+          <p>Pembayaran hanya dilakukan kepada Rekening berikut:</p>
+          <p>{invoiceData.bank}</p>
+        </div>
+
+        <div className="mt-12 text-right">
+          <p>Disetujui,</p>
+          <p>Tgl. ___________________</p>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
