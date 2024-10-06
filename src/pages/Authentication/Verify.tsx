@@ -106,56 +106,58 @@ const Verification: React.FC = () => {
   };
 
   return (
-    <div className="bg-gray-100 flex min-h-screen items-center justify-center dark:bg-boxdark-2 dark:text-bodydark">
-      <div className="w-full max-w-[480px] px-6">
-        <div className="text-center">
-          <div className="rounded-xl bg-white p-6 shadow-lg dark:bg-boxdark lg:p-8">
-            <h1 className="mb-4 text-3xl font-bold text-black dark:text-white">
-              Verify Your Account
-            </h1>
-            <p className="text-gray-600 dark:text-gray-400 mb-8">
-              Enter the 6 digit code sent to the registered email id.
-            </p>
-            <form onSubmit={handleSubmit}>
-              <div className="mb-5 flex justify-center">
-                <input
-                  type="text"
-                  value={otp}
-                  onChange={handleChange}
-                  maxLength={6}
-                  className="w-2/3 rounded-md border border-stroke bg-transparent p-3 text-center text-2xl font-medium text-black outline-none transition focus:border-primary dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                />
-              </div>
-              {error && (
-                <div className="mb-4 text-sm text-red-600">{error}</div>
-              )}
-              <div className="text-gray-600 dark:text-gray-400 mb-6 text-left">
-                <p>
-                  Didn’t receive a code?{' '}
-                  <button
-                    className="text-primary"
-                    onClick={handleResend}
-                    disabled={resendLoading}
-                  >
-                    {resendLoading ? 'Resending...' : 'Resend'}
-                  </button>
-                </p>
-              </div>
-              <button
-                className="w-full rounded-md bg-primary p-3 font-bold text-white hover:bg-opacity-90"
-                type="submit"
-                disabled={loading || !userId}
-              >
-                {loading ? 'Verifying...' : 'Verify OTP'}
-              </button>
-              <span className="mt-4 block text-sm text-red-600">
-                Don’t share the verification code with anyone!
-              </span>
-            </form>
+    <>
+      <div className="bg-gray-100 flex min-h-screen items-center justify-center dark:bg-boxdark-2 dark:text-bodydark">
+        <div className="w-full max-w-[480px] px-6">
+          <div className="text-center">
+            <div className="rounded-xl bg-white p-6 shadow-lg dark:bg-boxdark lg:p-8">
+              <h1 className="mb-4 text-3xl font-bold text-black dark:text-white">
+                Verify Your Account
+              </h1>
+              <p className="text-gray-600 dark:text-gray-400 mb-8">
+                Enter the 6 digit code sent to the registered email id.
+              </p>
+              <form onSubmit={handleSubmit}>
+                <div className="mb-5 flex justify-center">
+                  <input
+                    type="text"
+                    value={otp}
+                    onChange={handleChange}
+                    maxLength={6}
+                    className="w-2/3 rounded-md border border-stroke bg-transparent p-3 text-center text-2xl font-medium text-black outline-none transition focus:border-primary dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                  />
+                </div>
+                {error && (
+                  <div className="mb-4 text-sm text-red-600">{error}</div>
+                )}
+                <div className="text-gray-600 dark:text-gray-400 mb-6 text-left">
+                  <p>
+                    Didn’t receive a code?{' '}
+                    <button
+                      className="text-primary"
+                      onClick={handleResend}
+                      disabled={resendLoading}
+                    >
+                      {resendLoading ? 'Resending...' : 'Resend'}
+                    </button>
+                  </p>
+                </div>
+                <button
+                  className="w-full rounded-md bg-primary p-3 font-bold text-white hover:bg-opacity-90"
+                  type="submit"
+                  disabled={loading || !userId}
+                >
+                  {loading ? 'Verifying...' : 'Verify OTP'}
+                </button>
+                <span className="mt-4 block text-sm text-red-600">
+                  Don’t share the verification code with anyone!
+                </span>
+              </form>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
