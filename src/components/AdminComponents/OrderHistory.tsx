@@ -186,10 +186,10 @@ const OrderHistory: React.FC = () => {
                   filteredItems.map((item) => (
                     <div
                       key={item.tanggal}
-                      onClick={() => handleItemClick(item.tanggal)}
+                      onClick={() => handleItemClick(item.noOrder)}
                       className="cursor-pointer px-4 py-2 hover:bg-blue-100"
                     >
-                      {item.tanggal}
+                      {item.noOrder}
                     </div>
                   ))
                 ) : (
