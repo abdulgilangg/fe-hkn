@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Address, Item } from '../../types/package';
+import { Address, order } from '../../types/package';
 
 const Order: React.FC = () => {
   const [search, setSearch] = useState('');
@@ -16,10 +16,10 @@ const Order: React.FC = () => {
 
   const kurirOptions = ['JNE', 'Tiki', 'Pos Indonesia', 'Sicepat'];
 
-  const Data: Item[] = [
+  const Data: order[] = [
     {
       id: 1,
-      kode: '1574577',
+      kode: '157457P',
       name: 'ILFORD HP5 PLUS 135 36',
       qty: 4,
       harga: 200000,
@@ -48,9 +48,9 @@ const Order: React.FC = () => {
   // Fungsi untuk mengurutkan data berdasarkan column yang dipilih sortBy dan urutan sortItems
   const sortedData = [...Data].sort((a, b) => {
     if (sortItems === 'asc') {
-      return a[sortBy as keyof Item] > b[sortBy as keyof Item] ? 1 : -1;
+      return a[sortBy as keyof order] > b[sortBy as keyof order] ? 1 : -1;
     } else {
-      return a[sortBy as keyof Item] < b[sortBy as keyof Item] ? 1 : -1;
+      return a[sortBy as keyof order] < b[sortBy as keyof order] ? 1 : -1;
     }
   });
 
@@ -138,18 +138,17 @@ const Order: React.FC = () => {
     fetchAlamatKirim();
   }, []);
 
+  // Tombol Submit dan Discard
   const handleSubmit = () => {};
 
-  const handleDiscard = () => {
-    setKeterangan('');
-  };
+  const handleDiscard = () => {};
 
   return (
     <>
       <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
         <div className="px-4 py-6 md:px-6 xl:px-7.5">
           <h1 className="text-4xl text-center font-sm text-black dark:text-white">
-            ORDER HISTORY
+            PRODUCT DATA
           </h1>
         </div>
 
@@ -215,7 +214,10 @@ const Order: React.FC = () => {
                       <path d="M12 9v4" />
                       <path d="M12 17h.01" />
                     </svg>
-                    <span>Maaf data barang yang anda cari tidak tersedia</span>
+                    <span>
+                      Tidak ada data yang ditemukan. Silakan coba kata kunci
+                      lain.
+                    </span>
                   </div>
                 )}
               </div>
@@ -474,17 +476,19 @@ const Order: React.FC = () => {
             </div>
             <div className="col-span-1 flex items-center justify-center">
               <p className="text-sm text-black dark:text-white">
-                {Order.harga.toLocaleString()}
+                {Order.harga.toLocaleString('id-ID')}
               </p>
             </div>
             <div className="col-span-1 flex items-center justify-center">
               <p className="text-sm text-black dark:text-white">
-                {Order.diskon.toLocaleString()}
+                {Order.diskon.toLocaleString('id-ID')}
               </p>
             </div>
             <div className="col-span-1 flex items-center justify-center">
               <p className="text-sm text-black dark:text-white">
-                {(Order.harga * Order.qty - Order.diskon).toLocaleString()}
+                {(Order.harga * Order.qty - Order.diskon).toLocaleString(
+                  'id-ID',
+                )}
               </p>
             </div>
           </div>
@@ -588,23 +592,25 @@ const Order: React.FC = () => {
             <div className="flex justify-between mb-2">
               <span className="font-medium">Harga Total:</span>
               <span className="ml-auto">Rp</span>
-              <span className="ml-1">{hargaTotal.toLocaleString()}</span>
+              <span className="ml-1">{hargaTotal.toLocaleString('id-ID')}</span>
             </div>
             <div className="flex justify-between mb-2">
               <span className="font-medium">Diskon:</span>
               <span className="ml-auto">-Rp</span>
-              <span className="ml-1">{totalDiskon.toLocaleString()}</span>
+              <span className="ml-1">
+                {totalDiskon.toLocaleString('id-ID')}
+              </span>
             </div>
             <div className="flex justify-between mb-2">
               <span className="font-medium">PPN:</span>
               <span className="ml-auto">Rp</span>
-              <span className="ml-1">{ppn.toLocaleString()}</span>
+              <span className="ml-1">{ppn.toLocaleString('id-ID')}</span>
             </div>
             <hr />
             <div className="flex justify-between">
               <span className="font-medium">Total Bayar:</span>
               <span className="ml-auto">Rp</span>
-              <span className="ml-1">{totalBayar.toLocaleString()}</span>
+              <span className="ml-1">{totalBayar.toLocaleString('id-ID')}</span>
             </div>
           </div>
         </div>
