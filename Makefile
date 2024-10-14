@@ -6,11 +6,11 @@ APP_NAME=hkn-fe
 
 # Pull updates from Git and run the app in the background
 deploy:
-	ssh $(USERNAME)@$(VPS_IP) 'cd $(PROJECT_DIR) && git pull origin main && npm install && npm build && pm2 start npm --name "$(APP_NAME)" -- run dev'
+	ssh $(USERNAME)@$(VPS_IP) 'cd $(PROJECT_DIR) && git pull origin main && npm install && npm run build && pm2 start npm --name "$(APP_NAME)" -- run dev'
 
 # Stop the running app, pull updates, and restart the app in the background
 update:
-	ssh $(USERNAME)@$(VPS_IP) 'pm2 stop $(APP_NAME) && cd $(PROJECT_DIR) && git pull origin main && npm install && npm build && pm2 restart $(APP_NAME) --update-env'
+	ssh $(USERNAME)@$(VPS_IP) 'pm2 stop $(APP_NAME) && cd $(PROJECT_DIR) && git pull origin main && npm install && npm run build && pm2 restart $(APP_NAME) --update-env'
 
 # Stop the running app
 stop:
