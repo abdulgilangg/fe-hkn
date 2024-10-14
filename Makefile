@@ -32,3 +32,37 @@ free-port :
 # 2. free the port
 # 3. pull the latest changes from repo
 # 4. re-run the app
+
+#==================================================================
+# Define variables
+VPS_USER=admin
+VPS_HOST=103.217.144.72
+PROJECT_DIR=.
+REMOTE_DIR=/home/$(VPS_USER)/hkn-fe
+
+# Define commands
+SSH_CMD=ssh $(VPS_USER)@$(VPS_HOST)
+SCP_CMD=scp -r $(PROJECT_DIR)/dist $(VPS_USER)@$(VPS_HOST):$(REMOTE_DIR)
+
+# Targets
+all: deploy
+
+#deploy: build upload set_permissions revert_permissions restart_nginx
+deploy: build upload
+
+build:
+	npm run build
+
+upload:
+	$(SCP_CMD)
+
+set_permissions:
+	$(SSH_CMD) 'sudo chown -R $(VPS_USER):$(VPS_USER) $(REMOTE_DIR)'
+
+revert_permissions:
+	$(SSH_CMD) 'sudo chown -R www-data:www-data $(REMOTE_DIR) && sudo chmod -R 755 $(REMOTE_DIR)'
+
+restart_nginx:
+	$(SSH_CMD) 'sudo systemctl restart nginx'
+
+
