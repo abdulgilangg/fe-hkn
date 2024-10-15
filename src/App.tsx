@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 
 // Loader
@@ -16,6 +16,8 @@ import ForgotPassword from './pages/Authentication/ForgotPassword';
 import NewPassword from './pages/Authentication/NewPassword';
 
 // Page Admin
+// import HomeAdmin from './pages/Admin/Home';
+// import DealerOrder from './pages/Admin/DealerOrder';
 
 // Page Dealer
 import HomeDealer from './pages/Dealer/Home';
@@ -114,10 +116,11 @@ function App() {
         }
       />
       <Route
-        path="/admin/histori-transaksi"
+        path="/admin/dealer-order"
         element={
           <>
             <PageTitle title="HKN | Histori Transaksi" />
+            {/* <DealerOrder /> */}
           </>
         }
       />
@@ -203,6 +206,8 @@ function App() {
           </>
         }
       />
+      {/* End Route Dealer */}
+
       <Route
         path="/dealer/invoice"
         element={
@@ -212,7 +217,6 @@ function App() {
           </>
         }
       />
-      {/* End Route Dealer */}
     </Routes>
   );
 }
