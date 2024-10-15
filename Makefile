@@ -1,34 +1,30 @@
-#how to use :
+# Define variables
+USERNAME=admin
+VPS_IP=103.217.144.72
+PROJECT_DIR=/home/$(USERNAME)/hkn-fe
+APP_NAME=hkn-fe
 
-#command to run the app
-#what happen :
-# 1. close the port 3000 incase this port already used by another app before.
-# 2. start the dev server for the app
-run-fe :
-	@nohup npm run dev &
+# Pull updates from Git and run the app in the background
+initial-deploy:
+	ssh $(USERNAME)@$(VPS_IP) 'cd $(PROJECT_DIR) && git pull origin main && npm install && npm run build && pm2 start npm --name "$(APP_NAME)" -- run dev'
 
-#command to check the nohup output (log output)
-check-output :
-	cat nohup.out
+# Stop the running app, pull updates, and restart the app in the background
+deploy:
+	ssh $(USERNAME)@$(VPS_IP) 'pm2 stop $(APP_NAME) && cd $(PROJECT_DIR) && git pull origin main && npm install && npm run build && pm2 restart $(APP_NAME) --update-env'
 
-#command to check the PID of running app
-check-pid :
-	ps aux | grep 'npm run dev'
+# Stop the running app
+stop:
+	ssh $(USERNAME)@$(VPS_IP) 'pm2 stop $(APP_NAME)'
 
-check-port :
-	netstat -nlp
+# Start the app in the background
+start:
+	ssh $(USERNAME)@$(VPS_IP) 'cd $(PROJECT_DIR) && pm2 start npm --name "$(APP_NAME)" -- run dev'
 
-#command to update the source code from the repository (origin develop branch)
-pull-repo :
-	git pull origin develop
+# Restart the app in the background
+restart:
+	ssh $(USERNAME)@$(VPS_IP) 'pm2 restart $(APP_NAME)'
 
-#command to free the 3000 port.
-free-port :
-	fuser -k 3000/tcp
-#note :
-# before run the app make sure to stop the running app incase there are app already running exist
-# here is the steps :
-# 1. kill the running process
-# 2. free the port
-# 3. pull the latest changes from repo
-# 4. re-run the app
+# Check the status of the app
+status:
+	ssh $(USERNAME)@$(VPS_IP) 'pm2 status $(APP_NAME)'
+
