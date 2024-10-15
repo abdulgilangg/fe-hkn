@@ -1,46 +1,47 @@
 // Mendefinisikan tipe data untuk objek
+export type SignupPayload = {
+  name: string;
+  email: string;
+  password: string;
+}
+
+export type VerifyPayload = {
+  user_id: string;
+  otp: string;
+}
+
+export type SigninPayload = {
+  email: string;
+  password: string;
+}
+
 export type users = {
   id: number;
   name: string;
   role: string;
 }
 
-export type menuBarang = {
+export type Announcement = {
   id: number;
-  image: string;
-  name: string;
-  kategori: string;
-  kode: string;
-  qty: number;
-};
+  message: string;
+}
 
-export type OrderHistory = {
+export type BreadcrumbProps = {
+  pageName: string;
+  role: 'admin' | 'dealer';
+}
+
+export type orderHistory = {
   id: number;
   tanggal: string;
   noOrder: string;
-  jumlah: string;
+  jumlah: number;
   jenisPayment: string;
   statusPayment: string;
   statusKirim: string;
 };
 
-export type Keranjang = {
-  id: number;
-  name: string;
-  price: number;
-  image: string;
-  qty: number;
-}
-export type Produk = {
-  id: number;
-  name: string;
-  price: number;
-  image: string;
-  width: number;
-  height: number;
-}
-
-export type dataBarang = {
+export type order = {
   id: number;
   kode: string;
   name: string;
@@ -48,3 +49,33 @@ export type dataBarang = {
   harga: number;
   diskon: number;
 }
+
+export type Address = {
+  address: string;
+  city: string;
+  country: string;
+}
+
+export type ProfilePayload = {
+  username: string;
+  role: string;
+  profileImage: File | null
+  coverImage: File | null
+}
+
+// export type menuBarang = {
+//   id: number;
+//   image: string;
+//   name: string;
+//   kategori: string;
+//   kode: string;
+//   qty: number;
+// };
+
+// export type Keranjang = {
+//   id: number;
+//   name: string;
+//   price: number;
+//   image: string;
+//   qty: number;
+// }
