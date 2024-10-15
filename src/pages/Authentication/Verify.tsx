@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { VerifyPayload } from '../../types/package';
 
 const Verification: React.FC = () => {
   const [otp, setOtp] = useState('');
@@ -31,17 +32,16 @@ const Verification: React.FC = () => {
     setError('');
 
     try {
+      const verifyPayload: VerifyPayload = { user_id: userId!, otp };
+
       const response = await fetch(
-        'http://localhost:8040/verify-registration',
+        `http://103.217.144.72:5555/verify-registration`,
         {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
+            body: JSON.stringify(verifyPayload),
           },
-          body: JSON.stringify({
-            user_id: userId,
-            verification_code: otp,
-          }),
         },
       );
 
@@ -75,15 +75,16 @@ const Verification: React.FC = () => {
 
     try {
       const response = await fetch(
-        'http://localhost:8040/request-verification-code',
+        `http://103.217.144.72:5555/verify-registration`,
         {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
+            body: JSON.stringify({
+              user_id: userId,
+              verification_code: otp,
+            }),
           },
-          body: JSON.stringify({
-            user_id: userId,
-          }),
         },
       );
 

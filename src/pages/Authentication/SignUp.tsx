@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { SignupPayload } from '../../types/package';
 
 const SignUp: React.FC = () => {
   const navigate = useNavigate();
@@ -84,16 +85,15 @@ const SignUp: React.FC = () => {
 
     if (!hasError) {
       try {
-        const response = await fetch(
-          `${process.env.REACT_APP_API_URL}/register`,
-          {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ name, email, password, retypePassword }),
+        const signupPayload: SignupPayload = { name, email, password };
+
+        const response = await fetch(`http://103.217.144.72:5555/register`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
           },
-        );
+          body: JSON.stringify(signupPayload),
+        });
 
         const result = await response.json();
 
@@ -104,16 +104,22 @@ const SignUp: React.FC = () => {
             navigate(`/verify?user_id=${userId}`);
           } else {
             setPasswordError('Failed to retrieve user ID. Please try again.');
-            setLoading(false);
           }
         } else {
+          console.error(
+            'Server responded with an error:',
+            response.status,
+            result,
+          );
           setPasswordError(
             result.message || 'Account already exists. Please Sign In.',
           );
           setLoading(false);
         }
-      } catch (error) {
+      } catch (error: any) {
+        console.error('Error occurred:', error.message);
         setPasswordError('An error occurred. Please try again.');
+      } finally {
         setLoading(false);
       }
     } else {

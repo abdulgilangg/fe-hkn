@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { SigninPayload } from '../../types/package';
 
 const SignIn: React.FC = () => {
   const navigate = useNavigate();
@@ -53,10 +54,15 @@ const SignIn: React.FC = () => {
 
     if (!hasError) {
       try {
-        const response = await fetch(`${process.env.REACT_APP_API_URL}/login`, {
+        const signinPayload: SigninPayload = {
+          email,
+          password,
+        };
+
+        const response = await fetch(`http://103.217.144.72:5555/login`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, password }),
+          body: JSON.stringify(signinPayload),
         });
 
         const result = await response.json();
@@ -66,9 +72,9 @@ const SignIn: React.FC = () => {
 
           // Redirect berdasarkan role
           if (result.role === 'admin') {
-            navigate('/admin-dashboard');
+            navigate('/admin-home');
           } else if (result.role === 'dealer') {
-            navigate('/dealer-dashboard');
+            navigate('/dealer-home');
           } else {
             setPasswordError('Role not recognized. Please contact support.');
           }
