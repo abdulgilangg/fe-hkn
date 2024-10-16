@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { SignupPayload } from '../../types/package';
+import Swal from 'sweetalert2';
 
 const SignUp: React.FC = () => {
   const navigate = useNavigate();
@@ -18,11 +18,28 @@ const SignUp: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [showNotification, setShowNotification] = useState<boolean>(false);
 
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast: HTMLElement) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer);
+      toast.addEventListener('mouseleave', Swal.resumeTimer);
+    },
+  });
+
   useEffect(() => {
     if (showNotification) {
+      // Fire the toast
+      Toast.fire({
+        icon: 'success',
+        title: 'Signup in successfully',
+      });
       const timer = setTimeout(() => {
         setLoading(false);
-      }, 2000);
+      }, 3000);
       return () => clearTimeout(timer);
     }
   }, [showNotification]);
@@ -85,39 +102,38 @@ const SignUp: React.FC = () => {
 
     if (!hasError) {
       try {
-        const signupPayload: SignupPayload = { name, email, password };
-
         const response = await fetch(`http://103.217.144.72:5555/register`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify(signupPayload),
+          body: JSON.stringify({ name, email, password }),
         });
 
         const result = await response.json();
 
         if (response.ok) {
           setShowNotification(true);
+
           const userId = result.user_id;
+
+          Swal.fire({
+            icon: 'success',
+            title: 'Registration Successful',
+            text: 'Please check your email for the OTP verification code.',
+          });
+
           if (userId) {
-            navigate(`/verify?user_id=${userId}`);
-          } else {
-            setPasswordError('Failed to retrieve user ID. Please try again.');
+            localStorage.setItem('user_id', userId);
           }
+
+          navigate(`/auth/signin`);
         } else {
-          console.error(
-            'Server responded with an error:',
-            response.status,
-            result,
-          );
           setPasswordError(
             result.message || 'Account already exists. Please Sign In.',
           );
-          setLoading(false);
         }
       } catch (error: any) {
-        console.error('Error occurred:', error.message);
         setPasswordError('An error occurred. Please try again.');
       } finally {
         setLoading(false);
@@ -130,43 +146,6 @@ const SignUp: React.FC = () => {
   return (
     <>
       <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-        {showNotification && (
-          <div className="fixed left-1/2 top-0 mt-5 flex w-100 -translate-x-1/2 transform items-center justify-between rounded bg-green-500 p-4 shadow-sm">
-            <div className="flex items-center">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-                aria-hidden="true"
-                className="h-6 w-6 text-white"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
-                  clipRule="evenodd"
-                ></path>
-              </svg>
-              <p className="ml-3 font-medium text-white">
-                Register Successfully
-              </p>
-            </div>
-            <button
-              type="button"
-              className="hover:text-gray-300 flex items-center text-white"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-                aria-hidden="true"
-                className="h-5 w-5"
-              >
-                <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z"></path>
-              </svg>
-            </button>
-          </div>
-        )}
-
         <div className="flex min-h-screen flex-wrap items-center">
           <div className="hidden w-full xl:block xl:w-1/2">
             <div className="px-26 py-17.5 text-center">

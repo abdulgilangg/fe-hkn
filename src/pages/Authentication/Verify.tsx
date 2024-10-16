@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { VerifyPayload } from '../../types/package';
 
 const Verification: React.FC = () => {
   const [otp, setOtp] = useState('');
@@ -11,9 +10,10 @@ const Verification: React.FC = () => {
 
   const navigate = useNavigate();
 
+  // Ambil userId dari URL ketika komponen dimuat
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    const userId = params.get('user_id');
+    const userId = params.get('user-id');
 
     if (!userId) {
       alert('User ID is undefined or missing in the URL');
@@ -32,16 +32,21 @@ const Verification: React.FC = () => {
     setError('');
 
     try {
-      const verifyPayload: VerifyPayload = { user_id: userId!, otp };
+      if (!userId) {
+        throw new Error('User ID is missing');
+      }
 
       const response = await fetch(
         `http://103.217.144.72:5555/verify-registration`,
         {
-          method: 'POST',
+          method: 'GET',
           headers: {
             'Content-Type': 'application/json',
-            body: JSON.stringify(verifyPayload),
           },
+          body: JSON.stringify({
+            user_id: userId,
+            verification_code: otp,
+          }),
         },
       );
 
@@ -75,23 +80,20 @@ const Verification: React.FC = () => {
 
     try {
       const response = await fetch(
-        `http://103.217.144.72:5555/verify-registration`,
+        `http://103.217.144.72:5555/request-verification-code`,
         {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            body: JSON.stringify({
-              user_id: userId,
-              verification_code: otp,
-            }),
           },
+          body: JSON.stringify({ user_id: userId }),
         },
       );
 
       const result = await response.json();
 
       if (response.ok) {
-        alert('OTP has been resend successfully!');
+        alert('OTP has been resent successfully!');
       } else {
         throw new Error(
           result.message || 'Failed to resend OTP. Please try again.',
