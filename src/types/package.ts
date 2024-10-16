@@ -1,9 +1,4 @@
 // Mendefinisikan tipe data untuk objek
-export type SigninPayload = {
-  email: string;
-  password: string;
-}
-
 export type users = {
   id: number;
   name: string;

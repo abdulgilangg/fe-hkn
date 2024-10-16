@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { SigninPayload } from '../../types/package';
+import Swal from 'sweetalert2';
 
 const SignIn: React.FC = () => {
   const navigate = useNavigate();
@@ -12,11 +12,27 @@ const SignIn: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [showNotification, setShowNotification] = useState<boolean>(false);
 
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast: HTMLElement) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer);
+      toast.addEventListener('mouseleave', Swal.resumeTimer);
+    },
+  });
+
   useEffect(() => {
     if (showNotification) {
+      Toast.fire({
+        icon: 'success',
+        title: 'Signin successfully',
+      });
       const timer = setTimeout(() => {
         setLoading(false);
-      }, 2000);
+      }, 3000);
       return () => clearTimeout(timer);
     }
   }, [showNotification]);
@@ -54,15 +70,10 @@ const SignIn: React.FC = () => {
 
     if (!hasError) {
       try {
-        const signinPayload: SigninPayload = {
-          email,
-          password,
-        };
-
         const response = await fetch(`http://103.217.144.72:5555/login`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(signinPayload),
+          body: JSON.stringify({ email, password }),
         });
 
         const result = await response.json();
@@ -94,41 +105,6 @@ const SignIn: React.FC = () => {
   return (
     <>
       <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-        {showNotification && (
-          <div className="fixed left-1/2 top-0 mt-5 flex w-100 -translate-x-1/2 transform items-center justify-between rounded bg-green-500 p-4 shadow-sm">
-            <div className="flex items-center">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-                aria-hidden="true"
-                className="h-6 w-6 text-white"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
-                  clipRule="evenodd"
-                ></path>
-              </svg>
-              <p className="ml-3 font-medium text-white">SignIn Successfully</p>
-            </div>
-            <button
-              type="button"
-              className="hover:text-gray-300 flex items-center text-white"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-                aria-hidden="true"
-                className="h-5 w-5"
-              >
-                <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z"></path>
-              </svg>
-            </button>
-          </div>
-        )}
-
         <div className="flex min-h-screen flex-wrap items-center">
           <div className="hidden w-full xl:block xl:w-1/2">
             <div className="py-10 text-center">

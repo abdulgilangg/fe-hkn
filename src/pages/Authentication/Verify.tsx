@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 const Verification: React.FC = () => {
   const [otp, setOtp] = useState('');
@@ -53,7 +54,11 @@ const Verification: React.FC = () => {
       const result = await response.json();
 
       if (response.ok) {
-        alert('Verification OTP successfully!');
+        Swal.fire({
+          icon: 'success',
+          title: 'Verification OTP successfully!',
+          text: 'Please sign in again.',
+        });
         navigate('/auth/signin');
       } else {
         throw new Error(
@@ -69,9 +74,24 @@ const Verification: React.FC = () => {
     }
   };
 
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-left',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast: HTMLElement) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer);
+      toast.addEventListener('mouseleave', Swal.resumeTimer);
+    },
+  });
+
   const handleResend = async () => {
     if (!userId) {
-      alert('User ID is undefined or missing.');
+      Toast.fire({
+        icon: 'warning',
+        title: 'User ID is undefined or missing.',
+      });
       return;
     }
 
@@ -93,7 +113,11 @@ const Verification: React.FC = () => {
       const result = await response.json();
 
       if (response.ok) {
-        alert('OTP has been resent successfully!');
+        Swal.fire({
+          icon: 'success',
+          title: 'OTP has been resent successfully!',
+          text: 'Please check your email.',
+        });
       } else {
         throw new Error(
           result.message || 'Failed to resend OTP. Please try again.',

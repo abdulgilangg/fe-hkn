@@ -32,7 +32,6 @@ const SignUp: React.FC = () => {
 
   useEffect(() => {
     if (showNotification) {
-      // Fire the toast
       Toast.fire({
         icon: 'success',
         title: 'Signup in successfully',
