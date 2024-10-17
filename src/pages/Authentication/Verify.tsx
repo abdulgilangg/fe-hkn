@@ -8,20 +8,55 @@ const Verification: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [userId, setUserId] = useState<string | null>(null);
   const [resendLoading, setResendLoading] = useState(false);
-
   const navigate = useNavigate();
 
-  // Ambil userId dari URL ketika komponen dimuat
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    const userId = params.get('user-id');
+    const userId = params.get('user_id');
+    const otp = params.get('verification_code');
 
-    if (!userId) {
-      alert('User ID is undefined or missing in the URL');
-    } else {
-      setUserId(userId);
+    if (!userId || !otp) {
+      alert('User ID or verification code is undefined or missing in the URL');
+      return;
     }
+
+    setUserId(userId);
+    // Verifikasi OTP dengan metode GET
+    verifyOtpAutomatically(userId, otp);
   }, []);
+
+  const verifyOtpAutomatically = async (userId: string, otp: string) => {
+    try {
+      const response = await fetch(
+        `http://103.217.144.72:5555/verify-registration?user_id=${userId}&verification_code=${otp}`, // Menggunakan GET dengan parameter URL
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        },
+      );
+
+      const result = await response.json();
+
+      if (response.ok) {
+        Swal.fire({
+          icon: 'success',
+          title: 'Verification successful!',
+          text: 'You will be redirected to sign in.',
+        });
+        navigate('/auth/signin');
+      } else {
+        throw new Error(
+          result.message || 'Invalid OTP code. Please try again.',
+        );
+      }
+    } catch (error) {
+      setError(
+        (error as Error).message || 'An error occurred during verification.',
+      );
+    }
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setOtp(e.target.value);
@@ -29,18 +64,19 @@ const Verification: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!otp || !userId) {
+      alert('Please enter OTP and ensure User ID is available.');
+      return;
+    }
+
     setLoading(true);
     setError('');
 
     try {
-      if (!userId) {
-        throw new Error('User ID is missing');
-      }
-
       const response = await fetch(
         `http://103.217.144.72:5555/verify-registration`,
         {
-          method: 'GET',
+          method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
@@ -56,8 +92,8 @@ const Verification: React.FC = () => {
       if (response.ok) {
         Swal.fire({
           icon: 'success',
-          title: 'Verification OTP successfully!',
-          text: 'Please sign in again.',
+          title: 'Verification successful!',
+          text: 'You will be redirected to sign in.',
         });
         navigate('/auth/signin');
       } else {
@@ -67,28 +103,16 @@ const Verification: React.FC = () => {
       }
     } catch (error) {
       setError(
-        (error as Error).message || 'An error occurred. Please try again.',
+        (error as Error).message || 'An error occurred during verification.',
       );
     } finally {
       setLoading(false);
     }
   };
 
-  const Toast = Swal.mixin({
-    toast: true,
-    position: 'top-left',
-    showConfirmButton: false,
-    timer: 3000,
-    timerProgressBar: true,
-    didOpen: (toast: HTMLElement) => {
-      toast.addEventListener('mouseenter', Swal.stopTimer);
-      toast.addEventListener('mouseleave', Swal.resumeTimer);
-    },
-  });
-
   const handleResend = async () => {
     if (!userId) {
-      Toast.fire({
+      Swal.fire({
         icon: 'warning',
         title: 'User ID is undefined or missing.',
       });

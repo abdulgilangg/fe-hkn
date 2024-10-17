@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
@@ -16,32 +16,6 @@ const SignUp: React.FC = () => {
   );
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState<boolean>(false);
-  const [showNotification, setShowNotification] = useState<boolean>(false);
-
-  const Toast = Swal.mixin({
-    toast: true,
-    position: 'top-end',
-    showConfirmButton: false,
-    timer: 3000,
-    timerProgressBar: true,
-    didOpen: (toast: HTMLElement) => {
-      toast.addEventListener('mouseenter', Swal.stopTimer);
-      toast.addEventListener('mouseleave', Swal.resumeTimer);
-    },
-  });
-
-  useEffect(() => {
-    if (showNotification) {
-      Toast.fire({
-        icon: 'success',
-        title: 'Signup in successfully',
-      });
-      const timer = setTimeout(() => {
-        setLoading(false);
-      }, 3000);
-      return () => clearTimeout(timer);
-    }
-  }, [showNotification]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -112,21 +86,20 @@ const SignUp: React.FC = () => {
         const result = await response.json();
 
         if (response.ok) {
-          setShowNotification(true);
-
-          const userId = result.user_id;
-
           Swal.fire({
             icon: 'success',
             title: 'Registration Successful',
             text: 'Please check your email for the OTP verification code.',
           });
 
-          if (userId) {
-            localStorage.setItem('user_id', userId);
-          }
+          // Ambil user_id dan verification_code dari response
+          const userId = result.data.user_id; // Sesuaikan dengan struktur respons backend
+          const verificationCode = result.data.verification_code; // Sesuaikan dengan struktur respons backend
 
-          navigate(`/auth/signin`);
+          // Navigasi ke halaman verifikasi dengan GET
+          navigate(
+            `/auth/verify?user_id=${userId}&verification_code=${verificationCode}`,
+          );
         } else {
           setPasswordError(
             result.message || 'Account already exists. Please Sign In.',
@@ -296,9 +269,7 @@ const SignUp: React.FC = () => {
                       onChange={(e) => setName(e.target.value)}
                       placeholder="Enter your name"
                       className={`w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${
-                        nameError
-                          ? 'border-red-600 text-blue-600'
-                          : 'border-stroke'
+                        nameError ? 'border-red-600' : 'border-stroke'
                       }`}
                     />
                     {nameError && (
@@ -341,9 +312,7 @@ const SignUp: React.FC = () => {
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="Enter your email"
                       className={`w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${
-                        nameError
-                          ? 'border-red-600 text-blue-600'
-                          : 'border-stroke'
+                        nameError ? 'border-red-600' : 'border-stroke'
                       }`}
                     />
                     {emailError && (
@@ -381,9 +350,7 @@ const SignUp: React.FC = () => {
                       onChange={(e) => setPassword(e.target.value)}
                       placeholder="Enter your password"
                       className={`w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${
-                        passwordError
-                          ? 'border-red-600 text-blue-600'
-                          : 'border-stroke'
+                        passwordError ? 'border-red-600' : 'border-stroke'
                       }`}
                     />
                     <button
@@ -430,10 +397,12 @@ const SignUp: React.FC = () => {
                         </span>
                       )}
                     </button>
+                    {passwordError && (
+                      <p className="mt-1 text-sm text-red-600">
+                        {passwordError}
+                      </p>
+                    )}
                   </div>
-                  {passwordError && (
-                    <p className="mt-1 text-sm text-red-600">{passwordError}</p>
-                  )}
                 </div>
 
                 <div className="mb-4">
@@ -449,9 +418,7 @@ const SignUp: React.FC = () => {
                       autoComplete="current-password"
                       placeholder="Re-enter your password"
                       className={`w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${
-                        passwordError
-                          ? 'border-red-600 text-blue-600'
-                          : 'text-blue-600'
+                        passwordError ? 'border-red-600' : 'border-stroke'
                       }`}
                     />
 
