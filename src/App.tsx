@@ -16,8 +16,8 @@ import ForgotPassword from './pages/Authentication/ForgotPassword';
 import NewPassword from './pages/Authentication/NewPassword';
 
 // Page Admin
-// import HomeAdmin from './pages/Admin/Home';
-// import DealerOrder from './pages/Admin/DealerOrder';
+import HomeAdmin from './pages/Admin/Home';
+import DealerOrder from './pages/Admin/DealerOrder';
 
 // Page Dealer
 import HomeDealer from './pages/Dealer/Home';
@@ -111,7 +111,7 @@ function App() {
         element={
           <>
             <PageTitle title="HKN | Home" />
-            {/* <HomeAdmin /> */}
+            <HomeAdmin />
           </>
         }
       />
@@ -120,7 +120,7 @@ function App() {
         element={
           <>
             <PageTitle title="HKN | Histori Transaksi" />
-            {/* <DealerOrder /> */}
+            <DealerOrder />
           </>
         }
       />

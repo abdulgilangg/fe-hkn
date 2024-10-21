@@ -107,9 +107,9 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, role }: SidebarProps) => {
                     {/* <!-- Menu Item Dealer Order --> */}
                     <li>
                       <NavLink
-                        to="/admin/dealer-order"
+                        to="/admin/history-order"
                         className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                          pathname.includes('home') &&
+                          pathname.includes('dealer-order') &&
                           'bg-graydark dark:bg-meta-4'
                         }`}
                       >
@@ -123,15 +123,242 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, role }: SidebarProps) => {
                           stroke-width="2"
                           stroke-linecap="round"
                           stroke-linejoin="round"
-                          className="lucide lucide-house"
+                          className="lucide lucide-history"
                         >
-                          <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" />
-                          <path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                          <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+                          <path d="M3 3v5h5" />
+                          <path d="M12 7v5l4 2" />
+                        </svg>
+                        History Order
+                      </NavLink>
+                    </li>
+                    {/* <!-- Menu Item Dealer Order --> */}
+                  </ul>
+
+                  <ul className="mb-6 flex flex-col gap-1.5">
+                    {/* <!-- Menu Item Dealer Order --> */}
+                    <li>
+                      <NavLink
+                        to="/admin/dealer-order"
+                        className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
+                          pathname.includes('dealer-order') &&
+                          'bg-graydark dark:bg-meta-4'
+                        }`}
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          className="lucide lucide-shopping-bag"
+                        >
+                          <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z" />
+                          <path d="M3 6h18" />
+                          <path d="M16 10a4 4 0 0 1-8 0" />
                         </svg>
                         Dealer Order
                       </NavLink>
                     </li>
                     {/* <!-- Menu Item Dealer Order --> */}
+                  </ul>
+
+                  <ul className="mb-6 flex flex-col gap-1.5">
+                    {/* <!-- Menu Item Dealer Order --> */}
+                    <li>
+                      <NavLink
+                        to="/admin/dealer-order"
+                        className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
+                          pathname.includes('dealer-order') &&
+                          'bg-graydark dark:bg-meta-4'
+                        }`}
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          className="lucide lucide-megaphone"
+                        >
+                          <path d="m3 11 18-5v12L3 14v-3z" />
+                          <path d="M11.6 16.8a3 3 0 1 1-5.8-1.6" />
+                        </svg>
+                        Announcement
+                      </NavLink>
+                    </li>
+                    {/* <!-- Menu Item Dealer Order --> */}
+                  </ul>
+
+                  <ul className="mb-6 flex flex-col gap-1.5">
+                    {/* <!-- Menu Item User --> */}
+                    <SidebarLinkGroup
+                      activeCondition={
+                        pathname === '/' || pathname.includes('dashboard')
+                      }
+                    >
+                      {(handleClick, open) => {
+                        return (
+                          <React.Fragment>
+                            <NavLink
+                              to="#"
+                              className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark2 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
+                                (pathname === '/' ||
+                                  pathname.includes('dashboard')) &&
+                                'bg-graydark dark:bg-meta-4'
+                              }`}
+                              onClick={(e) => {
+                                e.preventDefault();
+                                sidebarExpanded
+                                  ? handleClick()
+                                  : setSidebarExpanded(true);
+                              }}
+                            >
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="24"
+                                height="24"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                className="lucide lucide-wrench"
+                              >
+                                <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
+                              </svg>
+                              Item Tools
+                              <svg
+                                className={`absolute right-4 top-1/2 -translate-y-1/2 fill-current ${
+                                  open && 'rotate-180'
+                                }`}
+                                width="20"
+                                height="20"
+                                viewBox="0 0 20 20"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  fillRule="evenodd"
+                                  clipRule="evenodd"
+                                  d="M4.41107 6.9107C4.73651 6.58527 5.26414 6.58527 5.58958 6.9107L10.0003 11.3214L14.4111 6.91071C14.7365 6.58527 15.2641 6.58527 15.5896 6.91071C15.915 7.23614 15.915 7.76378 15.5896 8.08922L10.5896 13.0892C10.2641 13.4147 9.73651 13.4147 9.41107 13.0892L4.41107 8.08922C4.08563 7.76378 4.08563 7.23614 4.41107 6.9107Z"
+                                  fill=""
+                                />
+                              </svg>
+                            </NavLink>
+                            {/* <!-- Dropdown Menu Start --> */}
+                            <div
+                              className={`translate transform overflow-hidden ${
+                                !open && 'hidden'
+                              }`}
+                            >
+                              <ul className="mt-4 mb-5.5 flex flex-col gap-2.5 pl-6">
+                                <li>
+                                  <NavLink
+                                    to="/admin/tambah-user"
+                                    className={({ isActive }) =>
+                                      'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-primary ' +
+                                      (isActive && '!text-white')
+                                    }
+                                  >
+                                    <svg
+                                      xmlns="http://www.w3.org/2000/svg"
+                                      width="24"
+                                      height="24"
+                                      viewBox="0 0 24 24"
+                                      fill="none"
+                                      stroke="currentColor"
+                                      stroke-width="2"
+                                      stroke-linecap="round"
+                                      stroke-linejoin="round"
+                                      className="lucide lucide-package"
+                                    >
+                                      <path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z" />
+                                      <path d="M12 22V12" />
+                                      <path d="m3.3 7 7.703 4.734a2 2 0 0 0 1.994 0L20.7 7" />
+                                      <path d="m7.5 4.27 9 5.15" />
+                                    </svg>
+                                    Data Item
+                                  </NavLink>
+                                </li>
+                              </ul>
+                              <ul className="mt-4 mb-5.5 flex flex-col gap-2.5 pl-6">
+                                <li>
+                                  <NavLink
+                                    to="/admin/data-user"
+                                    className={({ isActive }) =>
+                                      'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-primary ' +
+                                      (isActive && '!text-white')
+                                    }
+                                  >
+                                    <svg
+                                      xmlns="http://www.w3.org/2000/svg"
+                                      width="24"
+                                      height="24"
+                                      viewBox="0 0 24 24"
+                                      fill="none"
+                                      stroke="currentColor"
+                                      stroke-width="2"
+                                      stroke-linecap="round"
+                                      stroke-linejoin="round"
+                                      className="lucide lucide-package-plus"
+                                    >
+                                      <path d="M16 16h6" />
+                                      <path d="M19 13v6" />
+                                      <path d="M21 10V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l2-1.14" />
+                                      <path d="m7.5 4.27 9 5.15" />
+                                      <polyline points="3.29 7 12 12 20.71 7" />
+                                      <line x1="12" x2="12" y1="22" y2="12" />
+                                    </svg>
+                                    Add Item
+                                  </NavLink>
+                                </li>
+                              </ul>
+                              <ul className="mt-4 mb-5.5 flex flex-col gap-2.5 pl-6">
+                                <li>
+                                  <NavLink
+                                    to="/admin/data-user"
+                                    className={({ isActive }) =>
+                                      'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-primary ' +
+                                      (isActive && '!text-white')
+                                    }
+                                  >
+                                    <svg
+                                      xmlns="http://www.w3.org/2000/svg"
+                                      width="24"
+                                      height="24"
+                                      viewBox="0 0 24 24"
+                                      fill="none"
+                                      stroke="currentColor"
+                                      stroke-width="2"
+                                      stroke-linecap="round"
+                                      stroke-linejoin="round"
+                                      className="lucide lucide-percent"
+                                    >
+                                      <line x1="19" x2="5" y1="5" y2="19" />
+                                      <circle cx="6.5" cy="6.5" r="2.5" />
+                                      <circle cx="17.5" cy="17.5" r="2.5" />
+                                    </svg>
+                                    Discount
+                                  </NavLink>
+                                </li>
+                              </ul>
+                            </div>
+                            {/* <!-- Dropdown Menu End --> */}
+                          </React.Fragment>
+                        );
+                      }}
+                    </SidebarLinkGroup>
+                    {/* <!-- Menu Item User --> */}
                   </ul>
                 </div>
 
@@ -205,10 +432,27 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, role }: SidebarProps) => {
                                   <NavLink
                                     to="/admin/tambah-user"
                                     className={({ isActive }) =>
-                                      'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ' +
+                                      'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-primary ' +
                                       (isActive && '!text-white')
                                     }
                                   >
+                                    <svg
+                                      xmlns="http://www.w3.org/2000/svg"
+                                      width="24"
+                                      height="24"
+                                      viewBox="0 0 24 24"
+                                      fill="none"
+                                      stroke="currentColor"
+                                      stroke-width="2"
+                                      stroke-linecap="round"
+                                      stroke-linejoin="round"
+                                      className="lucide lucide-user-round-plus"
+                                    >
+                                      <path d="M2 21a8 8 0 0 1 13.292-6" />
+                                      <circle cx="10" cy="8" r="5" />
+                                      <path d="M19 16v6" />
+                                      <path d="M22 19h-6" />
+                                    </svg>
                                     Tambah User
                                   </NavLink>
                                 </li>
@@ -218,11 +462,57 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, role }: SidebarProps) => {
                                   <NavLink
                                     to="/admin/data-user"
                                     className={({ isActive }) =>
-                                      'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ' +
+                                      'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-primary ' +
                                       (isActive && '!text-white')
                                     }
                                   >
+                                    <svg
+                                      xmlns="http://www.w3.org/2000/svg"
+                                      width="24"
+                                      height="24"
+                                      viewBox="0 0 24 24"
+                                      fill="none"
+                                      stroke="currentColor"
+                                      stroke-width="2"
+                                      stroke-linecap="round"
+                                      stroke-linejoin="round"
+                                      className="lucide lucide-file-user"
+                                    >
+                                      <path d="M14 2v4a2 2 0 0 0 2 2h4" />
+                                      <path d="M15 18a3 3 0 1 0-6 0" />
+                                      <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7z" />
+                                      <circle cx="12" cy="13" r="2" />
+                                    </svg>
                                     Data User
+                                  </NavLink>
+                                </li>
+                              </ul>
+                              <ul className="mt-4 mb-5.5 flex flex-col gap-2.5 pl-6">
+                                <li>
+                                  <NavLink
+                                    to="/admin/data-user"
+                                    className={({ isActive }) =>
+                                      'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-primary ' +
+                                      (isActive && '!text-white')
+                                    }
+                                  >
+                                    <svg
+                                      xmlns="http://www.w3.org/2000/svg"
+                                      width="24"
+                                      height="24"
+                                      viewBox="0 0 24 24"
+                                      fill="none"
+                                      stroke="currentColor"
+                                      stroke-width="2"
+                                      stroke-linecap="round"
+                                      stroke-linejoin="round"
+                                      className="lucide lucide-user-round-check"
+                                    >
+                                      <path d="M2 21a8 8 0 0 1 13.292-6" />
+                                      <circle cx="10" cy="8" r="5" />
+                                      <path d="m16 19 2 2 4-4" />
+                                    </svg>
+                                    User Approval
                                   </NavLink>
                                 </li>
                               </ul>
