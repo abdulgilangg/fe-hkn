@@ -181,13 +181,13 @@ const OrderHistory: React.FC = () => {
               onChange={handleSearchChange}
             />
             {isDropdownOpen && (
-              <div className="absolute left-0 right-0 top-full z-10 mt-1 max-h-60 overflow-y-auto rounded-md border bg-white shadow-lg">
+              <div className="absolute left-0 right-0 top-full z-10 mt-1 max-h-60 overflow-y-auto rounded-md border bg-white focus:border-primary dark:bg-meta-4 dark:border-strokedark dark:text-gray dark:focus:border-primary shadow-lg">
                 {filteredItems.length > 0 ? (
                   filteredItems.map((item) => (
                     <div
                       key={item.tanggal}
                       onClick={() => handleItemClick(item.noOrder)}
-                      className="cursor-pointer px-4 py-2 hover:bg-blue-100"
+                      className="cursor-pointer px-4 py-2 hover:bg-graydark dark:hover:bg-primary"
                     >
                       {item.noOrder}
                     </div>
@@ -221,7 +221,7 @@ const OrderHistory: React.FC = () => {
           </div>
           <div className="flex items-center font-medium">
             <select
-              className="bg-transparent pl-2"
+              className="bg-transparent pl-2 dark:border-strokedark dark:bg-meta-4 dark:focus:border-primary"
               value={entriesPerPage}
               onChange={handleEntriesChange}
             >
@@ -490,8 +490,8 @@ const OrderHistory: React.FC = () => {
                   OrderHistory.statusKirim === 'Delivered'
                     ? 'bg-success text-success'
                     : OrderHistory.statusKirim === 'Cancel'
-                    ? 'bg-danger text-danger'
-                    : 'bg-warning text-warning'
+                      ? 'bg-danger text-danger'
+                      : 'bg-warning text-warning'
                 }`}
               >
                 {OrderHistory.statusKirim}
