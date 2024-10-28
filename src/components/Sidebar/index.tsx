@@ -104,12 +104,12 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, role }: SidebarProps) => {
                   </ul>
 
                   <ul className="mb-6 flex flex-col gap-1.5">
-                    {/* <!-- Menu Item Dealer Order --> */}
+                    {/* <!-- Menu Item History Order --> */}
                     <li>
                       <NavLink
                         to="/admin/history-order"
                         className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                          pathname.includes('dealer-order') &&
+                          pathname.includes('history-order') &&
                           'bg-graydark dark:bg-meta-4'
                         }`}
                       >
@@ -132,7 +132,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, role }: SidebarProps) => {
                         History Order
                       </NavLink>
                     </li>
-                    {/* <!-- Menu Item Dealer Order --> */}
+                    {/* <!-- Menu Item History Order --> */}
                   </ul>
 
                   <ul className="mb-6 flex flex-col gap-1.5">
@@ -168,12 +168,12 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, role }: SidebarProps) => {
                   </ul>
 
                   <ul className="mb-6 flex flex-col gap-1.5">
-                    {/* <!-- Menu Item Dealer Order --> */}
+                    {/* <!-- Menu Item Announcement --> */}
                     <li>
                       <NavLink
-                        to="/admin/dealer-order"
+                        to="/admin/announcement"
                         className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                          pathname.includes('dealer-order') &&
+                          pathname.includes('announcement') &&
                           'bg-graydark dark:bg-meta-4'
                         }`}
                       >
@@ -195,14 +195,14 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, role }: SidebarProps) => {
                         Announcement
                       </NavLink>
                     </li>
-                    {/* <!-- Menu Item Dealer Order --> */}
+                    {/* <!-- Menu Item Announcement --> */}
                   </ul>
 
                   <ul className="mb-6 flex flex-col gap-1.5">
-                    {/* <!-- Menu Item User --> */}
+                    {/* <!-- Menu Item Tools --> */}
                     <SidebarLinkGroup
                       activeCondition={
-                        pathname === '/' || pathname.includes('dashboard')
+                        pathname === '/' || pathname.includes('item')
                       }
                     >
                       {(handleClick, open) => {
@@ -212,7 +212,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, role }: SidebarProps) => {
                               to="#"
                               className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark2 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
                                 (pathname === '/' ||
-                                  pathname.includes('dashboard')) &&
+                                  pathname.includes('item')) &&
                                 'bg-graydark dark:bg-meta-4'
                               }`}
                               onClick={(e) => {
@@ -264,10 +264,10 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, role }: SidebarProps) => {
                               <ul className="mt-4 mb-5.5 flex flex-col gap-2.5 pl-6">
                                 <li>
                                   <NavLink
-                                    to="/admin/tambah-user"
+                                    to="/admin/data-item"
                                     className={({ isActive }) =>
                                       'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-primary ' +
-                                      (isActive && '!text-white')
+                                      (isActive && '!text-primary')
                                     }
                                   >
                                     <svg
@@ -294,10 +294,10 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, role }: SidebarProps) => {
                               <ul className="mt-4 mb-5.5 flex flex-col gap-2.5 pl-6">
                                 <li>
                                   <NavLink
-                                    to="/admin/data-user"
+                                    to="/admin/add-item"
                                     className={({ isActive }) =>
                                       'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-primary ' +
-                                      (isActive && '!text-white')
+                                      (isActive && '!text-primary')
                                     }
                                   >
                                     <svg
@@ -326,10 +326,10 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, role }: SidebarProps) => {
                               <ul className="mt-4 mb-5.5 flex flex-col gap-2.5 pl-6">
                                 <li>
                                   <NavLink
-                                    to="/admin/data-user"
+                                    to="/admin/discount"
                                     className={({ isActive }) =>
                                       'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-primary ' +
-                                      (isActive && '!text-white')
+                                      (isActive && '!text-primary')
                                     }
                                   >
                                     <svg
@@ -358,7 +358,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, role }: SidebarProps) => {
                         );
                       }}
                     </SidebarLinkGroup>
-                    {/* <!-- Menu Item User --> */}
+                    {/* <!-- Menu Item Tools --> */}
                   </ul>
                 </div>
 
@@ -372,7 +372,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, role }: SidebarProps) => {
                     {/* <!-- Menu Item User --> */}
                     <SidebarLinkGroup
                       activeCondition={
-                        pathname === '/' || pathname.includes('dashboard')
+                        pathname === '/' || pathname.includes('user')
                       }
                     >
                       {(handleClick, open) => {
@@ -382,7 +382,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, role }: SidebarProps) => {
                               to="#"
                               className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark2 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
                                 (pathname === '/' ||
-                                  pathname.includes('dashboard')) &&
+                                  pathname.includes('user')) &&
                                 'bg-graydark dark:bg-meta-4'
                               }`}
                               onClick={(e) => {
@@ -430,10 +430,10 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, role }: SidebarProps) => {
                               <ul className="mt-4 mb-5.5 flex flex-col gap-2.5 pl-6">
                                 <li>
                                   <NavLink
-                                    to="/admin/tambah-user"
+                                    to="/admin/add-user"
                                     className={({ isActive }) =>
                                       'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-primary ' +
-                                      (isActive && '!text-white')
+                                      (isActive && '!text-primary')
                                     }
                                   >
                                     <svg
@@ -453,7 +453,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, role }: SidebarProps) => {
                                       <path d="M19 16v6" />
                                       <path d="M22 19h-6" />
                                     </svg>
-                                    Tambah User
+                                    Add User
                                   </NavLink>
                                 </li>
                               </ul>
@@ -463,7 +463,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, role }: SidebarProps) => {
                                     to="/admin/data-user"
                                     className={({ isActive }) =>
                                       'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-primary ' +
-                                      (isActive && '!text-white')
+                                      (isActive && '!text-primary')
                                     }
                                   >
                                     <svg
@@ -490,10 +490,10 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, role }: SidebarProps) => {
                               <ul className="mt-4 mb-5.5 flex flex-col gap-2.5 pl-6">
                                 <li>
                                   <NavLink
-                                    to="/admin/data-user"
+                                    to="/admin/user-approval"
                                     className={({ isActive }) =>
                                       'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-primary ' +
-                                      (isActive && '!text-white')
+                                      (isActive && '!text-primary')
                                     }
                                   >
                                     <svg
