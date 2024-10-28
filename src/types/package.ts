@@ -47,14 +47,20 @@ export type ProfilePayload = {
   coverImage: File | null
 }
 
-// export type menuBarang = {
-//   id: number;
-//   image: string;
-//   name: string;
-//   kategori: string;
-//   kode: string;
-//   qty: number;
-// };
+export type menuBarang = {
+  id: number;
+  image: string;
+  name: string;
+  kategori: string;
+  kode: string;
+  qty: number;
+};
+
+export type Notification = {
+  id: number,
+  message: string,
+  date: string
+}
 
 // export type Keranjang = {
 //   id: number;
