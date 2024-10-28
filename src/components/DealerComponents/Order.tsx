@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Address, order } from '../../types/package';
+import axios from 'axios';
 
 const Order: React.FC = () => {
   const [search, setSearch] = useState('');
@@ -10,7 +11,7 @@ const Order: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
 
   const [shippingAddress, setShippingAddress] = useState<Address | null>(null);
-  const [selectCourier, setselectCourier] = useState<string>('Pilih Kurir');
+  const [selectCourier, setSelectCourier] = useState<string>('Pilih Kurir');
 
   const [keterangan, setKeterangan] = useState('');
 
@@ -127,7 +128,7 @@ const Order: React.FC = () => {
   useEffect(() => {
     const fetchAlamatKirim = async () => {
       try {
-        const response = await fetch('http://localhost:8080/api/alamat');
+        const response = await fetch('http://103.217.144.72:5555/alamat');
         const data = await response.json();
         setShippingAddress(data);
       } catch (error) {
@@ -139,9 +140,38 @@ const Order: React.FC = () => {
   }, []);
 
   // Tombol Submit dan Discard
-  const handleSubmit = () => {};
+  const handleSubmit = async () => {
+    try {
+      // Simpan order ke backend
+      const orderPayload = {
+        shippingAddress,
+        courier: selectCourier,
+        keterangan,
+        items: filteredItems,
+        totalBayar,
+      };
 
-  const handleDiscard = () => {};
+      await axios.post('http://103.217.144.72:5555/orders', orderPayload);
+
+      // Kirim notifikasi ke admin
+      await axios.post('http://103.217.144.72:5555/admin/notify', {
+        title: 'Order Baru',
+        message: `Dealer telah melakukan order dengan total: Rp ${totalBayar}`,
+      });
+
+      alert('Order berhasil dikirim. Notifikasi telah dikirim ke admin.');
+    } catch (error) {
+      console.error('Gagal mengirim order:', error);
+      alert('Terjadi kesalahan saat mengirim order.');
+    }
+  };
+
+  const handleDiscard = () => {
+    setSelectCourier('Pilih Kurir');
+    setKeterangan('');
+    setSearch('');
+    setShippingAddress(null);
+  };
 
   return (
     <>
@@ -576,7 +606,7 @@ const Order: React.FC = () => {
             <select
               id="kurir"
               value={selectCourier}
-              onChange={(e) => setselectCourier(e.target.value)}
+              onChange={(e) => setSelectCourier(e.target.value)}
               className="w-full px-1 py-1 border border-stroke rounded-sm text-gray-700 focus:outline-none focus:border-primary dark:bg-meta-4 dark:border-strokedark dark:text-white dark:focus:border-primary"
             >
               <option disabled>Pilih Kurir</option>
