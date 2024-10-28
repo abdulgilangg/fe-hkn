@@ -17,7 +17,15 @@ import NewPassword from './pages/Authentication/NewPassword';
 
 // Page Admin
 import HomeAdmin from './pages/Admin/Home';
+import HistoryOrder from './pages/Admin/HistoryOrder';
 import DealerOrder from './pages/Admin/DealerOrder';
+import Announcement from './pages/Admin/Announcement';
+import DataItem from './pages/Admin/DataItem';
+import AddItem from './pages/Admin/AddItem';
+import Discount from './pages/Admin/Discount';
+import AddUser from './pages/Admin/AddUser';
+import DataUser from './pages/Admin/DataUser';
+import UserApproval from './pages/Admin/UserApproval';
 
 // Page Dealer
 import HomeDealer from './pages/Dealer/Home';
@@ -116,36 +124,83 @@ function App() {
         }
       />
       <Route
+        path="/admin/history-order"
+        element={
+          <>
+            <PageTitle title="HKN | Histori History Order" />
+            <HistoryOrder />
+          </>
+        }
+      />
+      <Route
         path="/admin/dealer-order"
         element={
           <>
-            <PageTitle title="HKN | Histori Transaksi" />
+            <PageTitle title="HKN | Dealer Order" />
             <DealerOrder />
           </>
         }
       />
       <Route
-        path="/admin/pesanan"
+        path="/admin/announcement"
         element={
           <>
-            <PageTitle title="HKN | Pesanan" />
+            <PageTitle title="HKN | Announcement" />
+            <Announcement />
           </>
         }
       />
       <Route
-        path="/admin/pengumuman"
+        path="/admin/data-item"
         element={
           <>
-            <PageTitle title="HKN | Pengumuman" />
+            <PageTitle title="HKN | Data Item" />
+            <DataItem />
           </>
         }
       />
       <Route
-        path="/admin/profile"
+        path="/admin/add-item"
         element={
           <>
-            <PageTitle title="HKN | Profile " />
-            {/* <Profile /> */}
+            <PageTitle title="HKN | Add Item" />
+            <AddItem />
+          </>
+        }
+      />
+      <Route
+        path="/admin/discount"
+        element={
+          <>
+            <PageTitle title="HKN | Discount" />
+            <Discount />
+          </>
+        }
+      />
+      <Route
+        path="/admin/add-user"
+        element={
+          <>
+            <PageTitle title="HKN | Add User" />
+            <AddUser />
+          </>
+        }
+      />
+      <Route
+        path="/admin/data-user"
+        element={
+          <>
+            <PageTitle title="HKN | Data User" />
+            <DataUser />
+          </>
+        }
+      />
+      <Route
+        path="/admin/user-approval"
+        element={
+          <>
+            <PageTitle title="HKN | User Approval" />
+            <UserApproval />
           </>
         }
       />
@@ -154,7 +209,6 @@ function App() {
         element={
           <>
             <PageTitle title="HKN | Settings" />
-            <Settings />
           </>
         }
       />
