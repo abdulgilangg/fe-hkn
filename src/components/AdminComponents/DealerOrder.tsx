@@ -520,8 +520,8 @@ const DataTransaksi: React.FC = () => {
                 historiPesanan.statusKirim === 'Delivered'
                   ? 'bg-success text-success'
                   : historiPesanan.statusKirim === 'Cancel'
-                  ? 'bg-danger text-danger'
-                  : 'bg-warning text-warning'
+                    ? 'bg-danger text-danger'
+                    : 'bg-warning text-warning'
               }`}
             >
               {historiPesanan.statusKirim}
