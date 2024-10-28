@@ -1,10 +1,26 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ClickOutside from '../Utilities/ClickOutside';
+import { Notification } from '../../types/package';
 
 const DropdownNotification = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [notifying, setNotifying] = useState(true);
+  const [notifications, setNotications] = useState<Notification[]>([]);
+
+  useEffect(() => {
+    const fetchNotification = async () => {
+      const response = await fetch('http://103.217.144.72:5555/');
+      const data = await response.json();
+      setNotications(data);
+    };
+
+    fetchNotification();
+
+    const intervalId = setInterval(fetchNotification, 5000);
+
+    return () => clearInterval(intervalId);
+  }, []);
 
   return (
     <>
@@ -20,7 +36,7 @@ const DropdownNotification = () => {
           >
             <span
               className={`absolute -top-0.5 right-0 z-1 h-2 w-2 rounded-full bg-meta-1 ${
-                notifying === false ? 'hidden' : 'inline'
+                notifying ? 'inline' : 'hidden'
               }`}
             >
               <span className="absolute -z-1 inline-flex h-full w-full animate-ping rounded-full bg-meta-1 opacity-75"></span>
@@ -52,22 +68,22 @@ const DropdownNotification = () => {
               </div>
 
               <ul className="flex h-auto flex-col overflow-y-auto">
-                <li>
-                  <Link
-                    className="flex flex-col gap-2.5 border-t border-stroke px-4.5 py-3 hover:bg-gray-2 dark:border-strokedark dark:hover:bg-meta-4"
-                    to="#"
-                  >
-                    <p className="text-sm">
-                      <span className="text-black dark:text-white">
-                        Edit your information in a swipe
-                      </span>{' '}
-                      Sint occaecat cupidatat non proident, sunt in culpa qui
-                      officia deserunt mollit anim.
-                    </p>
+                {notifications.map((notifications) => (
+                  <li key={notifications.id}>
+                    <Link
+                      className="flex flex-col gap-2.5 border-t border-stroke px-4.5 py-3 hover:bg-gray-2 dark:border-strokedark dark:hover:bg-meta-4"
+                      to="/admin/home"
+                    >
+                      <p className="text-sm">
+                        <span className="text-black dark:text-white">
+                          {notifications.message}
+                        </span>
+                      </p>
 
-                    <p className="text-xs">12 May, 2025</p>
-                  </Link>
-                </li>
+                      <p className="text-xs">{notifications.date}</p>
+                    </Link>
+                  </li>
+                ))}
               </ul>
             </div>
           )}
