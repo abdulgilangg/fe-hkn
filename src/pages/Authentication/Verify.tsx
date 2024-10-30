@@ -3,37 +3,42 @@ import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
 const Verification: React.FC = () => {
-  const [otp, setOtp] = useState('');
+  const [otp, setOtp] = useState<string>('');
   const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState<boolean>(false);
   const [userId, setUserId] = useState<string | null>(null);
-  const [resendLoading, setResendLoading] = useState(false);
+  const [resendLoading, setResendLoading] = useState<boolean>(false);
   const navigate = useNavigate();
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    const userId = params.get('user_id');
-    const otp = params.get('verification_code');
+    const userIdFromParams = params.get('user_id');
+    const otpFromParams = params.get('verification_code');
 
-    if (!userId || !otp) {
-      alert('User ID or verification code is undefined or missing in the URL');
+    if (!userIdFromParams || !otpFromParams) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'User ID or verification code is undefined or missing in the URL',
+      });
       return;
     }
 
-    setUserId(userId);
-    // Verifikasi OTP dengan metode GET
-    verifyOtpAutomatically(userId, otp);
+    setUserId(userIdFromParams);
+    setOtp(otpFromParams);
+    verifyOtpAutomatically(userIdFromParams, otpFromParams);
   }, []);
 
   const verifyOtpAutomatically = async (userId: string, otp: string) => {
     try {
       const response = await fetch(
-        `http://103.217.144.72:5555/verify-registration?user_id=${userId}&verification_code=${otp}`, // Menggunakan GET dengan parameter URL
+        `${import.meta.env.VITE_APP_PUBLIC_API_URL}/verify-registration`,
         {
-          method: 'GET',
+          method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
+          body: JSON.stringify({ user_id: userId, verification_code: otp }),
         },
       );
 
@@ -65,16 +70,20 @@ const Verification: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!otp || !userId) {
-      alert('Please enter OTP and ensure User ID is available.');
+      Swal.fire({
+        icon: 'warning',
+        title: 'Warning',
+        text: 'Please enter OTP and ensure User ID is available.',
+      });
       return;
     }
 
     setLoading(true);
-    setError('');
+    setError(null);
 
     try {
       const response = await fetch(
-        `http://103.217.144.72:5555/verify-registration`,
+        `${import.meta.env.VITE_APP_PUBLIC_API_URL}/verify-registration`,
         {
           method: 'POST',
           headers: {
@@ -114,17 +123,18 @@ const Verification: React.FC = () => {
     if (!userId) {
       Swal.fire({
         icon: 'warning',
-        title: 'User ID is undefined or missing.',
+        title: 'Warning',
+        text: 'User ID is undefined or missing.',
       });
       return;
     }
 
     setResendLoading(true);
-    setError('');
+    setError(null);
 
     try {
       const response = await fetch(
-        `http://103.217.144.72:5555/request-verification-code`,
+        `${import.meta.env.VITE_APP_PUBLIC_API_URL}/request-verification-code`,
         {
           method: 'POST',
           headers: {

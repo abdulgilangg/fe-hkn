@@ -33,8 +33,7 @@ const SignUp: React.FC = () => {
       hasError = true;
     }
 
-    // Validasi email
-    // Regex validasi email
+    // Validasi email menggunakan Regex validasi email
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       setEmailError('Email is invalid.');
@@ -49,9 +48,7 @@ const SignUp: React.FC = () => {
       setPasswordError('Password must be at least 8 characters long.');
       hasError = true;
     } else if (
-      // Harus ada huruf kapital
       !/[A-Z]/.test(password) ||
-      // Harus ada simbol
       !/[!@#$%^&*()_+{}\[\]:;"'<>,.?~\\/-]/.test(password)
     ) {
       setPasswordError(
@@ -75,13 +72,16 @@ const SignUp: React.FC = () => {
 
     if (!hasError) {
       try {
-        const response = await fetch(`http://103.217.144.72:5555/register`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
+        const response = await fetch(
+          `${import.meta.env.VITE_APP_PUBLIC_API_URL}/register`,
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ name, email, password }),
           },
-          body: JSON.stringify({ name, email, password }),
-        });
+        );
 
         const result = await response.json();
 
@@ -93,8 +93,8 @@ const SignUp: React.FC = () => {
           });
 
           // Ambil user_id dan verification_code dari response
-          const userId = result.data.user_id; // Sesuaikan dengan struktur respons backend
-          const verificationCode = result.data.verification_code; // Sesuaikan dengan struktur respons backend
+          const userId = result.data.user_id;
+          const verificationCode = result.data.verification_code;
 
           // Navigasi ke halaman verifikasi dengan GET
           navigate(
@@ -537,5 +537,4 @@ const SignUp: React.FC = () => {
     </>
   );
 };
-
 export default SignUp;

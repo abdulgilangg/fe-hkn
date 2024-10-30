@@ -43,7 +43,7 @@ const NewPassword: React.FC = () => {
     try {
       // Kirim request ke backend untuk memeriksa email dan mengirim link reset password
       const response = await fetch(
-        `${process.env.REACT_APP_API_URL}/reset-password`,
+        `${import.meta.env.VITE_APP_PUBLIC_API_URL}/reset-password`,
         {
           method: 'POST',
           headers: {

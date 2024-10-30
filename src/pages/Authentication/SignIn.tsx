@@ -59,8 +59,8 @@ const SignIn: React.FC = () => {
       setPasswordError('Password must be at least 8 characters long.');
       hasError = true;
     } else if (
-      !/[A-Z]/.test(password) || // Harus ada huruf kapital
-      !/[!@#$%^&*()_+{}\[\]:;"'<>,.?~\\/-]/.test(password) // Harus ada simbol
+      !/[A-Z]/.test(password) ||
+      !/[!@#$%^&*()_+{}\[\]:;"'<>,.?~\\/-]/.test(password)
     ) {
       setPasswordError(
         'The password must contain at least 1 capital letter and 1 symbol.',
@@ -70,11 +70,14 @@ const SignIn: React.FC = () => {
 
     if (!hasError) {
       try {
-        const response = await fetch(`http://103.217.144.72:5555/login`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, password }),
-        });
+        const response = await fetch(
+          `${import.meta.env.VITE_APP_PUBLIC_API_URL}/login`,
+          {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, password }),
+          },
+        );
 
         const result = await response.json();
 
