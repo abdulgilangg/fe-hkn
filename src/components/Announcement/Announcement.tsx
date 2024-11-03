@@ -55,7 +55,7 @@ const AnnouncementSlider: React.FC = () => {
 
   if (isLoading) {
     return (
-      <div className="text-center text-white bg-primary bg-opacity-90 rounded-sm border shadow-default border-stroke mb-5 p-5 flex justify-center dark:border-strokedark dark:bg-boxdark dark:text-white">
+      <div className="text-center text-white bg-primary bg-opacity-90 rounded-sm border shadow-default border-stroke mb-5 p-5 flex justify-center dark:border-strokedark dark:bg-boxdark">
         Loading...
       </div>
     );
@@ -63,7 +63,7 @@ const AnnouncementSlider: React.FC = () => {
 
   if (announcement.length === 0) {
     return (
-      <div className="text-center text-white bg-primary bg-opacity-90 rounded-sm border shadow-default border-stroke mb-5 p-5 flex justify-center dark:border-strokedark dark:bg-boxdark dark:text-white">
+      <div className="text-center text-white bg-primary bg-opacity-90 rounded-sm border shadow-default border-stroke mb-5 p-5 flex justify-center dark:border-strokedark dark:bg-boxdark">
         There are no announcements at this time.
       </div>
     );
