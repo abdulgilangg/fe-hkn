@@ -1,4 +1,4 @@
-import User from '/images/user/user-01.png';
+import User from '/images/user/user.png';
 
 const Settings = () => {
   return (
@@ -53,8 +53,8 @@ const Settings = () => {
                           type="text"
                           name="fullName"
                           id="fullName"
-                          placeholder="Alea Viviane"
-                          defaultValue="Alea Viviane"
+                          placeholder="Alea"
+                          defaultValue="Alea"
                         />
                       </div>
                     </div>
@@ -133,8 +133,8 @@ const Settings = () => {
                       type="text"
                       name="Username"
                       id="Username"
-                      placeholder="aleaa"
-                      defaultValue="aleaa"
+                      placeholder="alea"
+                      defaultValue="alea"
                     />
                   </div>
 
@@ -150,7 +150,8 @@ const Settings = () => {
                       type="text"
                       name="Address"
                       id="Address"
-                      placeholder="aleaa"
+                      placeholder="Jl. Jalanin Aja"
+                      defaultValue="Jl. Jalanin Aja"
                     />
                   </div>
 

@@ -1,5 +1,5 @@
-import Cover from '/images/cover/cover-01.png';
-import User from '/images/user/user-01.png';
+import Cover from '/images/cover/cover.png';
+import User from '/images/user/user.png';
 
 const Profile = () => {
   return (
@@ -93,5 +93,4 @@ const Profile = () => {
     </>
   );
 };
-
 export default Profile;
