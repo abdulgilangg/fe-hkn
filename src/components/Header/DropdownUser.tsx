@@ -1,30 +1,69 @@
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import ClickOutside from '../Utilities/ClickOutside';
-import User from '/images/user/user-01.png';
+import User from '/images/user/user.png';
 import { users } from '../../types/package';
-
-const Data: users[] = [
-  {
-    id: 1,
-    name: 'Alea',
-    role: 'Dealer',
-  },
-];
+import Swal from 'sweetalert2';
 
 const DropdownUser = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [data, setData] = useState<users[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const navigate = useNavigate(); // Hook untuk navigasi
+  const navigate = useNavigate();
 
-  const handleLogout = () => {
-    const confirmLogout = window.confirm('Apakah Anda yakin ingin logout?');
+  // Function to fetch user data
+  const fetchData = async () => {
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_APP_PUBLIC_API_URL}/`,
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        },
+      );
+      if (!response.ok) throw new Error('Failed to fetch users data');
 
-    if (confirmLogout) {
-      // Hapus token atau data autentikasi
-      localStorage.removeItem('authToken');
-      sessionStorage.removeItem('authToken');
+      const data = await response.json();
+      setData(data);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  // Display loading indicator if still loading
+  if (isLoading) {
+    return (
+      <div className="text-center text-white bg-primary bg-opacity-90 rounded-sm border shadow-default border-stroke mb-5 p-5 flex justify-center dark:border-strokedark dark:bg-boxdark">
+        Loading...
+      </div>
+    );
+  }
+
+  // Function to handle logout
+  const handleLogout = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const result = await Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, sign me out!',
+    });
+
+    if (result.isConfirmed) {
+      localStorage.removeItem('authToken'); // Remove authentication token
+      sessionStorage.removeItem('authToken'); // Remove session token
       navigate('/');
     }
   };
@@ -37,7 +76,7 @@ const DropdownUser = () => {
           className="flex items-center gap-4"
           to="#"
         >
-          {Data.map((data) => (
+          {data.map((data) => (
             <span key={data.id} className="hidden text-right lg:block">
               <span className="block text-sm font-medium text-black dark:text-white">
                 {data.name}
