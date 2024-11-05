@@ -39,7 +39,6 @@ const DropdownUser = () => {
     fetchData();
   }, []);
 
-  // Display loading indicator if still loading
   if (isLoading) {
     return (
       <div className="text-center text-white bg-primary bg-opacity-90 rounded-sm border shadow-default border-stroke mb-5 p-5 flex justify-center dark:border-strokedark dark:bg-boxdark">

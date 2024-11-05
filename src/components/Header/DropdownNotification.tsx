@@ -1,26 +1,53 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import ClickOutside from '../Utilities/ClickOutside';
+import { formatDistanceToNow } from 'date-fns';
 import { Notification } from '../../types/package';
 
 const DropdownNotification = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [notifying, setNotifying] = useState(true);
-  const [notifications, setNotications] = useState<Notification[]>([]);
+  const [notifying, setNotifying] = useState(false);
+  const [notifications, setNotifications] = useState<Notification[]>([]);
 
   useEffect(() => {
-    const fetchNotification = async () => {
-      const response = await fetch('http://103.217.144.72:5555/');
+    const fetchNotifications = async () => {
+      const response = await fetch(
+        `${import.meta.env.VITE_APP_PUBLIC_API_URL}/`,
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        },
+      );
       const data = await response.json();
-      setNotications(data);
+      setNotifications(data);
     };
 
-    fetchNotification();
-
-    const intervalId = setInterval(fetchNotification, 5000);
-
+    const intervalId = setInterval(fetchNotifications, 3000);
     return () => clearInterval(intervalId);
   }, []);
+
+  useEffect(() => {
+    // Set notifying true jika ada notifikasi
+    setNotifying(notifications.length > 0);
+  }, [notifications]);
+
+  const navigate = useNavigate();
+
+  const handleNotificationClick = (id: number) => {
+    // Hapus notifikasi yang sudah dilihat
+    setNotifications((prev) =>
+      prev.filter((notification) => notification.id !== id),
+    );
+    // Navigasi ke halaman detail notifikasi
+    navigate(`/dealer/notification/${id}`);
+  };
+
+  const markAllAsRead = () => {
+    setNotifications([]);
+    setNotifying(false);
+  };
 
   return (
     <>
@@ -58,33 +85,94 @@ const DropdownNotification = () => {
           </Link>
 
           {dropdownOpen && (
-            <div
-              className={`absolute -right-27 mt-2.5 flex h-90 w-75 flex-col rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark sm:right-0 sm:w-80`}
-            >
-              <div className="px-4.5 py-3">
+            <div className="absolute -right-27 mt-2.5 flex h-90 w-75 flex-col rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark sm:right-0 sm:w-80">
+              <div className="flex items-center justify-between px-4.5 py-3">
                 <h5 className="text-sm font-medium text-bodydark2">
-                  Notification
+                  Notifications
                 </h5>
+                <button
+                  onClick={markAllAsRead}
+                  title="Mark all as read"
+                  className="text-gray-600 hover:text-primary dark:text-gray-400 dark:hover:text-primary"
+                >
+                  <i className="fas fa-check text-lg" aria-hidden="true"></i>
+                </button>
+                <a
+                  href="#"
+                  title="Mark all as read"
+                  role="button"
+                  className="text-gray-600 hover:text-primary dark:text-gray-400 dark:hover:text-primary transition"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    // Handle mark all as read action here
+                  }}
+                >
+                  {/* Icon ceklis */}
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="3"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    className="lucide lucide-check"
+                  >
+                    <path d="M20 6 9 17l-5-5" />
+                  </svg>
+                  {/* Icon loading */}
+                  <span className="loading-icon hidden">
+                    <i
+                      className="fas fa-circle-notch fa-spin fa-fw text-lg"
+                      aria-hidden="true"
+                      title="Loading"
+                      aria-label="Loading"
+                    ></i>
+                  </span>
+                </a>
               </div>
 
               <ul className="flex h-auto flex-col overflow-y-auto">
-                {notifications.map((notifications) => (
-                  <li key={notifications.id}>
-                    <Link
-                      className="flex flex-col gap-2.5 border-t border-stroke px-4.5 py-3 hover:bg-gray-2 dark:border-strokedark dark:hover:bg-meta-4"
-                      to="/admin/home"
-                    >
-                      <p className="text-sm">
-                        <span className="text-black dark:text-white">
-                          {notifications.message}
-                        </span>
-                      </p>
-
-                      <p className="text-xs">{notifications.date}</p>
-                    </Link>
+                {notifications.length > 0 ? (
+                  notifications.map((notification) => (
+                    <li key={notification.id}>
+                      <Link
+                        className="flex flex-col gap-2.5 border-t border-stroke px-4.5 py-3 hover:bg-gray-2 dark:border-strokedark dark:hover:bg-meta-4"
+                        to={`/dealer/notification/${notification.id}`}
+                        onClick={() => handleNotificationClick(notification.id)}
+                      >
+                        <p className="text-sm">
+                          <span className="text-black dark:text-white">
+                            {notification.message}
+                          </span>
+                        </p>
+                        <p className="text-xs">
+                          {' '}
+                          {formatDistanceToNow(new Date(notification.time), {
+                            addSuffix: true,
+                          })}
+                        </p>
+                        <p className="text-xs font-medium text-primary hover:underline text-end">
+                          View full notification
+                        </p>
+                      </Link>
+                    </li>
+                  ))
+                ) : (
+                  <li className="px-4.5 py-3 text-sm text-gray-500">
+                    No notifications available.
                   </li>
-                ))}
+                )}
               </ul>
+
+              <a
+                className="flex items-center rounded-lg m-2 justify-center bg-primary py-3 text-sm font-medium text-white hover:bg-primary-dark"
+                href="#"
+              >
+                See all
+              </a>
             </div>
           )}
         </li>
@@ -92,5 +180,4 @@ const DropdownNotification = () => {
     </>
   );
 };
-
 export default DropdownNotification;
