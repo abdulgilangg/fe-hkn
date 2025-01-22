@@ -1,7 +1,7 @@
 import React from 'react';
 import RoleBasedLayout from '../../layout/RoleBasedLayout';
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
-import AnnouncementSlider from '../../components/Announcement/Announcement';
+import AnnouncementTrf from '../../components/AdminComponents/Announcement';
 
 const Announcement: React.FC = () => {
   return (
@@ -9,7 +9,7 @@ const Announcement: React.FC = () => {
       <RoleBasedLayout role="admin">
         <div className="mx-auto max-w-242.5">
           <Breadcrumb pageName="Announcement" role="admin" />
-          <AnnouncementSlider />
+          <AnnouncementTrf />
         </div>
       </RoleBasedLayout>
     </>

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Diskon } from '../../types/package';
+import { orderHistory } from '../../types/package';
 
 interface ActionProps {
   onEdit: () => void;
@@ -7,9 +7,12 @@ interface ActionProps {
   onDetails: () => void;
 }
 
-const Discount: React.FC<ActionProps> = ({ onEdit, onDelete, onDetails }) => {
+const Announcement: React.FC<ActionProps> = ({
+  onEdit,
+  onDelete,
+  onDetails,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
-
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
@@ -21,14 +24,15 @@ const Discount: React.FC<ActionProps> = ({ onEdit, onDelete, onDetails }) => {
   const [sortItems, setSortItems] = useState<'asc' | 'desc'>('asc');
   const [currentPage, setCurrentPage] = useState<number>(1);
 
-  const Data: Diskon[] = [
+  const Data: orderHistory[] = [
     {
       id: 1,
-      diskon: 20,
-    },
-    {
-      id: 2,
-      diskon: 10,
+      tanggal: 'Apparel',
+      noOrder: 'Donee',
+      jumlah: 23000000,
+      jenisPayment: 'DP 30%',
+      statusPayment: 'Menunggu',
+      statusKirim: 'On Process',
     },
   ];
 
@@ -45,14 +49,20 @@ const Discount: React.FC<ActionProps> = ({ onEdit, onDelete, onDetails }) => {
   // Fungsi untuk mengurutkan data berdasarkan column yang dipilih sortBy dan urutan sortItems
   const sortedData = [...Data].sort((a, b) => {
     if (sortItems === 'asc') {
-      return a[sortBy as keyof Diskon] > b[sortBy as keyof Diskon] ? 1 : -1;
+      return a[sortBy as keyof orderHistory] > b[sortBy as keyof orderHistory]
+        ? 1
+        : -1;
     } else {
-      return a[sortBy as keyof Diskon] < b[sortBy as keyof Diskon] ? 1 : -1;
+      return a[sortBy as keyof orderHistory] < b[sortBy as keyof orderHistory]
+        ? 1
+        : -1;
     }
   });
 
   // Fungsi untuk memfilter items berdasarkan name yang sesuai dengan kata kunci pencarian
-  const filteredItems = sortedData.filter((Data) => Data.diskon);
+  const filteredItems = sortedData.filter((Data) =>
+    Data.tanggal.toLowerCase().includes(search.toLowerCase()),
+  );
 
   // Fungsi untuk menghitung data untuk pagination
   const indexOfLastEntry = currentPage * entriesPerPage;
@@ -86,25 +96,36 @@ const Discount: React.FC<ActionProps> = ({ onEdit, onDelete, onDetails }) => {
       <div className="flex flex-col gap-9">
         <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
           <div className="flex flex-col gap-5.5 p-6.5">
-            {/* Diskon */}
+            {/* Name */}
             <div>
               <label className="mb-3 block text-sm font-medium text-black dark:text-white">
-                Diskon
+                Title
               </label>
               <input
                 type="text"
-                placeholder="Ex : 10"
+                placeholder="Name"
                 className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+              />
+            </div>
+
+            {/* Thumbnail */}
+            <div>
+              <label className="mb-3 block text-sm font-medium text-black dark:text-white">
+                Upload Proof of Transfer
+              </label>
+              <input
+                type="file"
+                className="w-full cursor-pointer rounded border-[1.5px] border-stroke bg-transparent outline-none transition file:mr-5 file:border-collapse file:cursor-pointer file:border-0 file:border-r file:border-solid file:border-stroke file:bg-whiter file:px-5 file:py-3 file:hover:bg-primary file:hover:bg-opacity-10 focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:file:border-form-strokedark dark:file:bg-white/30 dark:file:text-white dark:focus:border-primary"
               />
             </div>
 
             {/* Save Button */}
             <div className="flex flex-col lg:flex-row gap-4 mt-4 lg:mt-0 w-full lg:w-auto lg:ml-auto">
               <button
-                // onClick={handleSave}
+                // onClick={handleSubmit}
                 className="w-full lg:w-auto px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/50"
               >
-                Save
+                Submit
               </button>
               <button
                 // onClick={handleDiscard}
@@ -155,13 +176,11 @@ const Discount: React.FC<ActionProps> = ({ onEdit, onDelete, onDetails }) => {
                   {filteredItems.length > 0 ? (
                     filteredItems.map((item) => (
                       <div
-                        key={item.id}
-                        onClick={() =>
-                          handleItemClick(item.diskon.toLocaleString())
-                        }
+                        key={item.tanggal}
+                        onClick={() => handleItemClick(item.noOrder)}
                         className="cursor-pointer px-4 py-2 hover:bg-graydark dark:hover:bg-primary"
                       >
-                        {item.diskon}
+                        {item.noOrder}
                       </div>
                     ))
                   ) : (
@@ -182,10 +201,7 @@ const Discount: React.FC<ActionProps> = ({ onEdit, onDelete, onDetails }) => {
                         <path d="M12 9v4" />
                         <path d="M12 17h.01" />
                       </svg>
-                      <span>
-                        Tidak ada data yang ditemukan. Silakan coba kata kunci
-                        lain.
-                      </span>
+                      <span>No data found. Please try other keywords.</span>
                     </div>
                   )}
                 </div>
@@ -219,9 +235,42 @@ const Discount: React.FC<ActionProps> = ({ onEdit, onDelete, onDetails }) => {
                     title="Toggle SortBy"
                     className="cursor-pointer"
                   >
-                    <div className="grid grid-cols-2 border-stroke bg-gray-2 px-4 py-4.5 dark:border-strokedark dark:bg-meta-4 sm:grid-cols-2 md:px-2 2xl:px-7.5">
+                    <div className="grid grid-cols-3 border-stroke bg-gray-2 px-4 py-4.5 dark:border-strokedark dark:bg-meta-4 sm:grid-cols-3 md:px-3 2xl:px-7.5">
+                      <div className="col-span-1 flex items-center justify-center">
+                        <p className="font-medium">Category</p>
+                        <div className="ml-2 inline-flex flex-col space-y-[2px]">
+                          <span className="inline-block">
+                            <svg
+                              className="fill-current"
+                              width="10"
+                              height="5"
+                              viewBox="0 0 10 5"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path d="M5 0L0 5H10L5 0Z" fill=""></path>
+                            </svg>
+                          </span>
+                          <span className="inline-block">
+                            <svg
+                              className="fill-current"
+                              width="10"
+                              height="5"
+                              viewBox="0 0 10 5"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M5 5L10 0L-4.37114e-07 8.74228e-07L5 5Z"
+                                fill=""
+                              ></path>
+                            </svg>
+                          </span>
+                        </div>
+                      </div>
+
                       <div className="col-span-1 hidden items-center justify-center sm:flex">
-                        <p className="font-medium">Diskon</p>
+                        <p className="font-medium">Title</p>
                         <div className="ml-2 inline-flex flex-col space-y-[2px]">
                           <span className="inline-block">
                             <svg
@@ -294,20 +343,26 @@ const Discount: React.FC<ActionProps> = ({ onEdit, onDelete, onDetails }) => {
             <div className="py-4 text-center">No data available in table.</div>
           )}
 
-          {currentEntries.map((Diskon, key) => (
+          {currentEntries.map((OrderHistory, key) => (
             <div
-              className="grid grid-cols-2 border-t border-stroke px-4 py-4.5 dark:border-strokedark sm:grid-cols-2 md:px-2 2xl:px-7.5"
+              className="grid grid-cols-3 border-t border-stroke px-4 py-4.5 dark:border-strokedark sm:grid-cols-3 md:px-3 2xl:px-7.5"
               key={key}
             >
               <div className="col-span-1 flex items-center justify-center">
                 <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
                   <p className="text-sm text-black dark:text-white">
-                    {Diskon.diskon}
+                    {OrderHistory.tanggal}
                   </p>
                 </div>
               </div>
               <div className="col-span-1 hidden items-center justify-center sm:flex">
                 <p className="text-sm text-black dark:text-white">
+                  {OrderHistory.noOrder}
+                </p>
+              </div>
+              <div className="col-span-1 flex items-center justify-center">
+                <p className="text-sm text-black dark:text-white">
+                  {/* {OrderHistory.jumlah.toLocaleString('id-ID')} */}
                   <div className="relative col-span-1">
                     <div className="relative h-full">
                       <button
@@ -425,4 +480,4 @@ const Discount: React.FC<ActionProps> = ({ onEdit, onDelete, onDetails }) => {
   );
 };
 
-export default Discount;
+export default Announcement;

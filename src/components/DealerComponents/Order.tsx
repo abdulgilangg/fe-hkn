@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Address, order } from '../../types/package';
-import axios from 'axios';
 
 const Order: React.FC = () => {
   const [search, setSearch] = useState('');
@@ -128,7 +127,9 @@ const Order: React.FC = () => {
   useEffect(() => {
     const fetchAlamatKirim = async () => {
       try {
-        const response = await fetch('http://103.217.144.72:5555/alamat');
+        const response = await fetch(
+          `${import.meta.env.VITE_APP_PUBLIC_API_URL}/alamat`,
+        );
         const data = await response.json();
         setShippingAddress(data);
       } catch (error) {
@@ -139,10 +140,8 @@ const Order: React.FC = () => {
     fetchAlamatKirim();
   }, []);
 
-  // Tombol Submit dan Discard
   const handleSubmit = async () => {
     try {
-      // Simpan order ke backend
       const orderPayload = {
         shippingAddress,
         courier: selectCourier,
@@ -151,15 +150,36 @@ const Order: React.FC = () => {
         totalBayar,
       };
 
-      await axios.post('http://103.217.144.72:5555/orders', orderPayload);
+      const responseOrder = await fetch(
+        `${import.meta.env.VITE_APP_PUBLIC_API_URL}/orders`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(orderPayload),
+        },
+      );
 
-      // Kirim notifikasi ke admin
-      await axios.post('http://103.217.144.72:5555/admin/notify', {
-        title: 'Order Baru',
-        message: `Dealer telah melakukan order dengan total: Rp ${totalBayar}`,
-      });
+      const responseNotify = await fetch(
+        `${import.meta.env.VITE_APP_PUBLIC_API_URL}/admin/notify`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            title: 'Order Baru',
+            message: `Dealer telah melakukan order dengan total: Rp ${totalBayar}`,
+          }),
+        },
+      );
 
-      alert('Order berhasil dikirim. Notifikasi telah dikirim ke admin.');
+      if (responseOrder.ok && responseNotify.ok) {
+        alert('Order berhasil dikirim. Notifikasi telah dikirim ke admin.');
+      } else {
+        throw new Error('Gagal mengirim order atau notifikasi.');
+      }
     } catch (error) {
       console.error('Gagal mengirim order:', error);
       alert('Terjadi kesalahan saat mengirim order.');

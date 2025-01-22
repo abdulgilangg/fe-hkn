@@ -25,6 +25,11 @@ export type orderHistory = {
   statusKirim: string;
 };
 
+export type Diskon = {
+  id: number;
+  diskon: number;
+};
+
 export type order = {
   id: number;
   kode: string;
@@ -59,13 +64,13 @@ export type menuBarang = {
 export type Notification = {
   id: number,
   message: string,
-  date: string
+  time: string,
 }
 
-// export type Keranjang = {
-//   id: number;
-//   name: string;
-//   price: number;
-//   image: string;
-//   qty: number;
-// }
+export type Cart = {
+  id: number;
+  name: string;
+  qty: number;
+  price: number;
+  imgUrl: string;
+}

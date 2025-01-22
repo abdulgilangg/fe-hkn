@@ -27,9 +27,13 @@ import AddUser from './pages/Admin/AddUser';
 import DataUser from './pages/Admin/DataUser';
 import UserApproval from './pages/Admin/UserApproval';
 
+import NotificationDetail from './components/AdminComponents/DetailNotification';
+import DropdownNotification from './components/Header/DropdownNotification';
+
 // Page Dealer
 import HomeDealer from './pages/Dealer/Home';
 import Order from './pages/Dealer/Order';
+import Cart from './pages/Dealer/Cart';
 import Payment from './pages/Dealer/Payment';
 import Settings from './pages/Dealer/Settings';
 import Profile from './pages/Dealer/Profile';
@@ -212,6 +216,24 @@ function App() {
           </>
         }
       />
+      <Route
+        path="/admin/notification/:id"
+        element={
+          <>
+            <PageTitle title="HKN | Notification" />
+            <NotificationDetail />
+          </>
+        }
+      />
+      <Route
+        path="/admin/home"
+        element={
+          <>
+            <PageTitle title="HKN | Notification" />
+            <DropdownNotification />
+          </>
+        }
+      />
       {/* End Route Admin */}
 
       {/* Route Dealer */}
@@ -230,6 +252,15 @@ function App() {
           <>
             <PageTitle title="HKN | Order" />
             <Order />
+          </>
+        }
+      />
+      <Route
+        path="/dealer/cart"
+        element={
+          <>
+            <PageTitle title="HKN | Cart" />
+            <Cart />
           </>
         }
       />
