@@ -18,8 +18,8 @@ const Verification: React.FC = () => {
     if (!userIdFromParams || !otpFromParams) {
       Swal.fire({
         icon: 'error',
-        title: 'Error',
-        text: 'User ID or verification code is undefined or missing in the URL',
+        title: 'Kesalahan',
+        text: 'ID pengguna atau kode verifikasi tidak ditentukan atau hilang di URL',
       });
       return;
     }
@@ -47,18 +47,18 @@ const Verification: React.FC = () => {
       if (response.ok) {
         Swal.fire({
           icon: 'success',
-          title: 'Verification successful!',
-          text: 'You will be redirected to sign in.',
+          title: 'Verifikasi berhasil!',
+          text: 'Anda akan diarahkan untuk masuk',
         });
         navigate('/auth/signin');
       } else {
         throw new Error(
-          result.message || 'Invalid OTP code. Please try again.',
+          result.message || 'Kode OTP tidak valid. Silakan coba lagi',
         );
       }
     } catch (error) {
       setError(
-        (error as Error).message || 'An error occurred during verification.',
+        (error as Error).message || 'Terjadi kesalahan selama verifikasi',
       );
     }
   };
@@ -72,8 +72,8 @@ const Verification: React.FC = () => {
     if (!otp || !userId) {
       Swal.fire({
         icon: 'warning',
-        title: 'Warning',
-        text: 'Please enter OTP and ensure User ID is available.',
+        title: 'Peringatan',
+        text: 'Silakan masukkan OTP dan pastikan ID Pengguna tersedia',
       });
       return;
     }
@@ -101,18 +101,18 @@ const Verification: React.FC = () => {
       if (response.ok) {
         Swal.fire({
           icon: 'success',
-          title: 'Verification successful!',
-          text: 'You will be redirected to sign in.',
+          title: 'Verifikasi berhasil!',
+          text: 'Anda akan diarahkan untuk masuk',
         });
         navigate('/auth/signin');
       } else {
         throw new Error(
-          result.message || 'Invalid OTP code. Please try again.',
+          result.message || 'Kode OTP tidak valid. Silakan coba lagi',
         );
       }
     } catch (error) {
       setError(
-        (error as Error).message || 'An error occurred during verification.',
+        (error as Error).message || 'Terjadi kesalahan selama verifikasi',
       );
     } finally {
       setLoading(false);
@@ -123,8 +123,8 @@ const Verification: React.FC = () => {
     if (!userId) {
       Swal.fire({
         icon: 'warning',
-        title: 'Warning',
-        text: 'User ID is undefined or missing.',
+        title: 'Peringatan',
+        text: 'Silakan masukkan OTP dan pastikan ID Pengguna tersedia',
       });
       return;
     }
@@ -149,17 +149,17 @@ const Verification: React.FC = () => {
       if (response.ok) {
         Swal.fire({
           icon: 'success',
-          title: 'OTP has been resent successfully!',
-          text: 'Please check your email.',
+          title: 'OTP telah berhasil dikirim ulang!',
+          text: 'Silakan periksa email Anda',
         });
       } else {
         throw new Error(
-          result.message || 'Failed to resend OTP. Please try again.',
+          result.message || 'Gagal mengirim ulang OTP. Silakan coba lagi',
         );
       }
     } catch (error) {
       setError(
-        (error as Error).message || 'An error occurred while resending OTP.',
+        (error as Error).message || 'Terjadi kesalahan saat mengirim ulang OTP',
       );
     } finally {
       setResendLoading(false);
@@ -173,10 +173,10 @@ const Verification: React.FC = () => {
           <div className="text-center">
             <div className="rounded-xl bg-white p-6 shadow-lg dark:bg-boxdark lg:p-8">
               <h1 className="mb-4 text-3xl font-bold text-black dark:text-white">
-                Verify Your Account
+                Verifikasi Akun Anda
               </h1>
               <p className="text-gray-600 dark:text-gray-400 mb-8">
-                Enter the 6 digit code sent to the registered email id.
+                Masukkan kode 6 digit yang dikirim ke id email terdaftar
               </p>
               <form onSubmit={handleSubmit}>
                 <div className="mb-5 flex justify-center">
@@ -193,13 +193,13 @@ const Verification: React.FC = () => {
                 )}
                 <div className="text-gray-600 dark:text-gray-400 mb-6 text-left">
                   <p>
-                    Didn’t receive a code?{' '}
+                    Tidak menerima kode?{' '}
                     <button
                       className="text-primary"
                       onClick={handleResend}
                       disabled={resendLoading}
                     >
-                      {resendLoading ? 'Resending...' : 'Resend'}
+                      {resendLoading ? 'Mengirim ulang...' : 'Kirim ulang'}
                     </button>
                   </p>
                 </div>
@@ -208,10 +208,10 @@ const Verification: React.FC = () => {
                   type="submit"
                   disabled={loading || !userId}
                 >
-                  {loading ? 'Verifying...' : 'Verify OTP'}
+                  {loading ? 'Memverifikasi...' : 'Verifikasi OTP'}
                 </button>
                 <span className="mt-4 block text-sm text-red-600">
-                  Don’t share the verification code with anyone!
+                  Jangan bagikan kode verifikasi kepada siapa pun!
                 </span>
               </form>
             </div>

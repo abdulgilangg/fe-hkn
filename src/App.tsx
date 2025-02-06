@@ -62,7 +62,7 @@ function App() {
         index
         element={
           <>
-            <PageTitle title="Welcome!" />
+            <PageTitle title="Selamat Datang!" />
             <Homepage />
           </>
         }
@@ -74,7 +74,7 @@ function App() {
         path="/auth/signup"
         element={
           <>
-            <PageTitle title="HKN | Signup" />
+            <PageTitle title="HKN | Daftar" />
             <SignUp />
           </>
         }
@@ -83,16 +83,16 @@ function App() {
         path="/auth/signin"
         element={
           <>
-            <PageTitle title="HKN | Signin" />
+            <PageTitle title="HKN | Masuk" />
             <SignIn />
           </>
         }
       />
       <Route
-        path="/auth/verify"
+        path="/auth/verify-registration"
         element={
           <>
-            <PageTitle title="HKN | Verify" />
+            <PageTitle title="HKN | Verifikasi" />
             <Verify />
           </>
         }
@@ -101,7 +101,7 @@ function App() {
         path="/auth/forgot-password"
         element={
           <>
-            <PageTitle title="HKN | Forgot Password" />
+            <PageTitle title="HKN | Lupa Kata Sandi" />
             <ForgotPassword />
           </>
         }
@@ -110,7 +110,7 @@ function App() {
         path="/auth/new-password"
         element={
           <>
-            <PageTitle title="HKN | New Password" />
+            <PageTitle title="HKN | Kata Sandi Baru" />
             <NewPassword />
           </>
         }
