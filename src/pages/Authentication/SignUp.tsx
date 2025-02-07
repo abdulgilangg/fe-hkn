@@ -130,14 +130,6 @@ const SignUp: React.FC = () => {
           <div className="px-26 py-17.5 text-center">
             <div className="mb-5.5 inline-block">
               <img
-                className="hidden dark:block"
-                src={Logo}
-                alt="Logo"
-                width={176}
-                height={32}
-              />
-              <img className="dark:hidden" src={Logo} alt="Logo" />
-              <img
                 className="dark:hidden"
                 src={Logo}
                 alt="Logo"
