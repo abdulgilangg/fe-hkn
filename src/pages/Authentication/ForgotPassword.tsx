@@ -24,7 +24,7 @@ const ForgotPassword: React.FC = () => {
     // Validasi email dengan regex
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
-      setEmailError('Please enter a valid email.');
+      setEmailError('Silahkan masukkan email yang valid');
       setLoading(false);
       return;
     }
@@ -32,7 +32,7 @@ const ForgotPassword: React.FC = () => {
     try {
       // Kirim request ke backend untuk memeriksa email dan mengirim link reset password
       const response = await fetch(
-        `${import.meta.env.VITE_APP_PUBLIC_API_URL}/reset-password`,
+        `${import.meta.env.VITE_APP_PUBLIC_API_URL}/forgot-password`,
         {
           method: 'POST',
           headers: {
@@ -43,20 +43,20 @@ const ForgotPassword: React.FC = () => {
       );
 
       if (response.status === 404) {
-        setEmailError('Email is not registered.');
+        setEmailError('Email tidak diterdaftar');
       } else if (response.ok) {
         setNotificationMessage(
-          'Reset password link has been sent to your email!',
+          'Tautan setel ulang kata sandi telah dikirim ke email Anda!',
         );
         setShowNotification(true);
       } else {
         setNotificationMessage(
-          'Failed to send reset password link. Please try again.',
+          'Gagal mengirim tautan untuk menyetel ulang kata sandi. Silakan coba lagi',
         );
         setShowNotification(true);
       }
     } catch (error) {
-      setNotificationMessage('An error occurred. Please try again.');
+      setNotificationMessage('Terjadi kesalahan. Silakan coba lagi');
       setShowNotification(true);
     } finally {
       setLoading(false);
@@ -70,8 +70,8 @@ const ForgotPassword: React.FC = () => {
           <div className="hidden w-full xl:block xl:w-1/2">
             <div className="px-26 py-17.5 text-center">
               <p className="2xl:px-20">
-                Welcome back to Halo Kreasi Nusantara. Please Reset Your
-                Password.
+                Selamat datang kembali di Halo Kreasi Nusantara. Silakan Atur
+                Ulang Kata Sandi Anda
               </p>
 
               <span className="mt-15 inline-block">
@@ -202,7 +202,7 @@ const ForgotPassword: React.FC = () => {
           <div className="w-full border-stroke dark:border-strokedark xl:w-1/2 xl:border-l-2">
             <div className="w-full p-4 sm:p-12.5 xl:p-17.5">
               <h2 className="mb-9 text-2xl font-bold text-black dark:text-white sm:text-title-xl2">
-                Reset Password
+                Setel Ulang Kata Sandi
               </h2>
 
               <form onSubmit={handleReset}>
@@ -216,7 +216,7 @@ const ForgotPassword: React.FC = () => {
                       type="email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      placeholder="Enter your email"
+                      placeholder="Masukkan email Anda"
                       className={`w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${
                         emailError
                           ? 'border-red-600 text-black'
@@ -248,17 +248,15 @@ const ForgotPassword: React.FC = () => {
                   </div>
                 </div>
 
-                {/* Tombol Submit */}
                 <div className="mb-5">
                   <button
                     type="submit"
                     disabled={loading}
                     className="block w-full cursor-pointer rounded-lg border border-primary bg-primary p-4 text-center text-white transition hover:bg-opacity-90"
                   >
-                    {loading ? 'Loading...' : 'Send Reset Password'}
+                    {loading ? 'Loading...' : 'Kirim Reset Kata Sandi'}
                   </button>
 
-                  {/* Notifikasi berhasil atau gagal */}
                   {showNotification && <p>{notificationMessage}</p>}
                 </div>
               </form>
